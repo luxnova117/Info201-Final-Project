@@ -22,21 +22,34 @@ medical devices and monitors. Has data sources from many apps including FitBit a
 Alex:
 
 Steam APIs : https://steamcommunity.com/dev (a bunch of data about games and people who play them)
-  This API contains information on all the games on steam and their players. 
-  
+  This API contains information on all the games on steam and their players.
+
 NASA APIs: https://api.nasa.gov/index.html
   Includes many cool APIs such as the Near Earth Objects API which tracks asteroids "near" Earth and
   contains data about their size, mass, distance from Earth, etc. There are also other APIs such as Mars
   Rover Image API but many of them are image APIs which are less useful for us in this project.
-  
+
 PUBG API: https://pubgtracker.com/site-api
   Includes player and game statistics for one of the most popular games on Steam of all time.
-  
+
 World Bank API: https://datahelpdesk.worldbank.org/knowledgebase/articles/889386-developer-information-overview
-  My top choice. These APIs contain massive amount of economic and financial data for almost every country on the world for the past 
+  My top choice. These APIs contain massive amount of economic and financial data for almost every country on the world for the past
   60 years and it is easily accessible and its data easily recovered (people built libraries for easy access and I tested them). I think
-  with this data we can build a project where we analyze global trends, economic or not, for the past 60 years. We can even place two 
-  countries side by side and compare their growth throughout the past 60 years. We can also access every single World Bank project ever 
-  conducted or is being conducted if we wanted to. 
+  with this data we can build a project where we analyze global trends, economic or not, for the past 60 years. We can even place two
+  countries side by side and compare their growth throughout the past 60 years. We can also access every single World Bank project ever
+  conducted or is being conducted if we wanted to.
 
 Stone:
+
+BTC Blockchain API: https://blockchain.info/api
+We could match google trends to the blockchain API to 'predict' it's popularity and price, this method could match things like
+other markets to google trends, currencies, or products.
+
+Ticketmaster or Eventbrite APIs: https://www.eventbrite.com/developer/v3/
+http://developer.ticketmaster.com/products-and-docs/apis/getting-started/
+https://developer.wmata.com/
+We could create a site that looks at upcoming events and calculates traffic and city activity. Alternatively, we could create a site
+that compiles events and activities and could recommend things to attend for travelers or tourists.
+
+We could compile a few of the job search APIs and make a site that has a sort of advanced search for jobs that match an individuals search terms.
+https://www.careerjet.com/partners/api/ https://us.jooble.org/api/about
