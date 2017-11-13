@@ -10,5 +10,25 @@ Nutritionix	Worlds largest verified nutrition database: https://www.nutritionix.
 OR
 USDA Nutrients	National Nutrient Database for Standard Reference: https://ndb.nal.usda.gov/ndb/doc/index
 Facebook: Facebook Login, Share on FB, Social Plugins, Analytics and more https://developers.facebook.com/
+
 Alex:
+
+Steam APIs : https://steamcommunity.com/dev (a bunch of data about games and people who play them)
+  This API contains information on all the games on steam and their players. 
+  
+NASA APIs: https://api.nasa.gov/index.html
+  Includes many cool APIs such as the Near Earth Objects API which tracks asteroids "near" Earth and
+  contains data about their size, mass, distance from Earth, etc. There are also other APIs such as Mars
+  Rover Image API but many of them are image APIs which are less useful for us in this project.
+  
+PUBG API: https://pubgtracker.com/site-api
+  Includes player and game statistics for one of the most popular games on Steam of all time.
+  
+World Bank API: https://datahelpdesk.worldbank.org/knowledgebase/articles/889386-developer-information-overview
+  My top choice. These APIs contain massive amount of economic and financial data for almost every country on the world for the past 
+  60 years and it is easily accessible and its data easily recovered (people built libraries for easy access and I tested them). I think
+  with this data we can build a project where we analyze global trends, economic or not, for the past 60 years. We can even place two 
+  countries side by side and compare their growth throughout the past 60 years. We can also access every single World Bank project ever 
+  conducted or is being conducted if we wanted to. 
+
 Stone:
