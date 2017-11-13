@@ -6,10 +6,18 @@ Lots of google api's: https://developers.google.com/analytics/devguides/platform
 Global warming and natural disaster. Correlation?  Yahoo Weather API: https://developer.yahoo.com/weather/
 
 Jessica:
-Nutritionix	Worlds largest verified nutrition database: https://www.nutritionix.com/business/api
+Nutritionix	Worlds largest verified nutrition database: https://www.nutritionix.com/business/api]
+Has 776,360 food items including over 616K grocery foods with barcodes and 134K restaurant foods.
 OR
-USDA Nutrients	National Nutrient Database for Standard Reference: https://ndb.nal.usda.gov/ndb/doc/index
-Facebook: Facebook Login, Share on FB, Social Plugins, Analytics and more https://developers.facebook.com/
+USDA Food Composition Database: https://ndb.nal.usda.gov/ndb/doc/index
+USDA Nutrients National Nutrient Database for Standard Reference
+
+Facebook API: https://developers.facebook.com
+Facebook Login, Share on FB, Social Plugins, Analytics and more
+
+GetHealth API: https://www.programmableweb.com/api/gethealth
+Get Health is developer friendly unified REST-based API for fetching data from several health and fitness wearables,
+medical devices and monitors. Has data sources from many apps including FitBit and the Apple HealthKit
 
 Alex:
 
