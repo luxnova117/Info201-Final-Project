@@ -1,11 +1,11 @@
 API ideas below:
 Emma:
 Popular news topic trends. Database for multiple news websites: https://newsapi.org/
-This is my fav. We can see the latest, top and most popular headline lists from over 70 news websites. So, we can analyze the types of 
-articles that are being published and perhaps, analyze the trend in the types of articles that people like to read more. I know from somewhere 
+This is my fav. We can see the latest, top and most popular headline lists from over 70 news websites. So, we can analyze the types of
+articles that are being published and perhaps, analyze the trend in the types of articles that people like to read more. I know from somewhere
 that some news apps on our phones track what kinds of articles we tend to click on and analyze that and push more articles of the same kind
-to us so we stay on the news app longer. So with the data from the API, we can see what kinds of articles the general public is more 
-interested in and how that is changing. 
+to us so we stay on the news app longer. So with the data from the API, we can see what kinds of articles the general public is more
+interested in and how that is changing.
 
 Search trends on youtube: https://developers.google.com/youtube/?csw=1#data_api
 Lots of google api's: https://developers.google.com/analytics/devguides/platform/
@@ -56,6 +56,10 @@ http://developer.ticketmaster.com/products-and-docs/apis/getting-started/
 https://developer.wmata.com/
 We could create a site that looks at upcoming events and calculates traffic and city activity. Alternatively, we could create a site
 that compiles events and activities and could recommend things to attend for travelers or tourists.
+
+^I think this one would be pretty sweet. Being able to look up events that are happening where you are visiting, touring, or just near
+you would be pretty neat and applicable. It doesn't solve any real world "problems" however, which is why I would definitely be down for 
+perhaps the World Bank API Alex found as a project or perhaps the News API from Emma.
 
 We could compile a few of the job search APIs and make a site that has a sort of advanced search for jobs that match an individuals search terms.
 https://www.careerjet.com/partners/api/ https://us.jooble.org/api/about
