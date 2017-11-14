@@ -1,6 +1,12 @@
 API ideas below:
 Emma:
 Popular news topic trends. Database for multiple news websites: https://newsapi.org/
+This is my fav. We can see the latest, top and most popular headline lists from over 70 news websites. So, we can analyze the types of 
+articles that are being published and perhaps, analyze the trend in the types of articles that people like to read more. I know from somewhere 
+that some news apps on our phones track what kinds of articles we tend to click on and analyze that and push more articles of the same kind
+to us so we stay on the news app longer. So with the data from the API, we can see what kinds of articles the general public is more 
+interested in and how that is changing. 
+
 Search trends on youtube: https://developers.google.com/youtube/?csw=1#data_api
 Lots of google api's: https://developers.google.com/analytics/devguides/platform/
 Global warming and natural disaster. Correlation?  Yahoo Weather API: https://developer.yahoo.com/weather/
