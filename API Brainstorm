@@ -14,12 +14,12 @@ Global warming and natural disaster. Correlation?  Yahoo Weather API: https://de
 Jessica:
 1.
 GetHealth API: https://platform.gethealth.io/#!/Account_API/CreateUser
-Get Health is developer friendly unified REST-based API for fetching data from several health and fitness wearables, medical devices and monitors. Has data sources from many apps including FitBit and the Apple HealthKit
-It includes data about the daily step totals, daily nutrition, hydration data of people, number of hours of sleep.
+Get Health is developer friendly unified REST-based API for fetching data from several health and fitness wearables, medical devices 
+and monitors. Has data sources from many apps including FitBit and the Apple HealthKit.
+It includes data about the daily step totals, daily nutrition, calories burnt, number of hours of sleep.
 
-^Either one of this health APIS are my top choice. We could compare how "healthy" people are from different countries
-by looking at how active they are, the average daily nutrition, or how much they sleep. Not sure how interested you guys are
-in nutrition and health, so I'm totally fine with doing any of your guys top choices.
+^ This is my top choice. We could compare how "healthy" people are from different countries by looking at how active
+they are, the average daily nutrition, or how much they sleep. Not sure how interested you guys are in nutrition and health though.
 
 2. 
 Facebook API: https://developers.facebook.com
