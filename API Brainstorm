@@ -12,18 +12,25 @@ Lots of google api's: https://developers.google.com/analytics/devguides/platform
 Global warming and natural disaster. Correlation?  Yahoo Weather API: https://developer.yahoo.com/weather/
 
 Jessica:
+1.
+GetHealth API: https://platform.gethealth.io/#!/Account_API/CreateUser
+Get Health is developer friendly unified REST-based API for fetching data from several health and fitness wearables, medical devices and monitors. Has data sources from many apps including FitBit and the Apple HealthKit
+It includes data about the daily step totals, daily nutrition, hydration data of people, number of hours of sleep.
+
+^Either one of this health APIS are my top choice. We could compare how "healthy" people are from different countries
+by looking at how active they are, the average daily nutrition, or how much they sleep. Not sure how interested you guys are
+in nutrition and health, so I'm totally fine with doing any of your guys top choices.
+
+2. 
+Facebook API: https://developers.facebook.com
+Facebook Login, Share on FB, Social Plugins, Analytics and more
+
+3.
 Nutritionix	Worlds largest verified nutrition database: https://www.nutritionix.com/business/api]
 Has 776,360 food items including over 616K grocery foods with barcodes and 134K restaurant foods.
 OR
 USDA Food Composition Database: https://ndb.nal.usda.gov/ndb/doc/index
 USDA Nutrients National Nutrient Database for Standard Reference
-
-Facebook API: https://developers.facebook.com
-Facebook Login, Share on FB, Social Plugins, Analytics and more
-
-GetHealth API: https://www.programmableweb.com/api/gethealth
-Get Health is developer friendly unified REST-based API for fetching data from several health and fitness wearables,
-medical devices and monitors. Has data sources from many apps including FitBit and the Apple HealthKit
 
 Alex:
 
