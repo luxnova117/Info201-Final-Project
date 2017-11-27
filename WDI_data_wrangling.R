@@ -22,6 +22,24 @@ getData <- function(the.indicator, countries, start.year, end.year){
   return(dat)
 }
 
+getCountryCodes <- function(){
+  countries.response <- GET("https://api.printful.com/countries")
+  countries.response.content <- content(countries.response,"text")
+  countries.response.data <- fromJSON(countries.response.content)
+  countries <- countries.response.data$result
+  
+  countries.code <- lapply(countries, '[[', 1)
+  countries.code <- unlist(countries.code)
+  
+  countries.name <- lapply(countries, '[[', 2)
+  countries.name <- unlist(countries.name)
+  
+  countries.data <- list(name = countries.name, code = countries.code)
+  return(data.frame(countries.data))
+}
+
+country.codes <- getCountryCodes()
+
 indicators <- list("GDP" = "NY.GDP.MKTP.CD",
                    "GDP_per_capita" = "NY.GDP.PCAP.CD",
                    "GDP_annual_growth" = "NY.GDP.MKTP.KD.ZG",
@@ -40,16 +58,3 @@ indicators <- list("GDP" = "NY.GDP.MKTP.CD",
                    "refugee_pupulation_origin" = "SM.POP.REFG.OR",
                    "outbound_mobile_students" = "UIS.OE.56.40510")
 
-countries.response <- GET("https://api.printful.com/countries")
-countries.response.content <- content(countries.response,"text")
-countries.response.data <- fromJSON(countries.response.content)
-countries <- countries.response.data$result
-
-countries.code <- lapply(countries, '[[', 1)
-countries.code <- unlist(countries.code)
-
-countries.name <- lapply(countries, '[[', 2)
-countries.name <- unlist(countries.name)
-
-countries.data <- list(name = countries.name, code = countries.code) # List containing all the countries and their
-                                                                     # 2 digit country codes.
