@@ -1,0 +1,26 @@
+library(gganimate)
+library(ggplot2)
+library(magick)
+library(animation)
+library(installr)
+
+# Uncomment the following and run it
+# install.ImageMagick(URL = "https://www.imagemagick.org/script/download.php") MAKE SURE TO INSTALL LEGACY FILES
+# also install all the packages that I have if you haven't
+# also please update to R version 3.4.2
+
+source("WDI_data_wrangling.R")
+
+us.code <- (filter(country.codes, name == "United States") %>% select(code))[[1]]
+test.dat <- getData(indicators$GDP, us.code)
+test.dat2 <- getData(indicators$population_total, us.code)
+
+
+test.dat3 <- left_join(test.dat, test.dat2, by = c("country", "year", "iso2c"))
+colnames(test.dat3) <- c("country_code", "country", "GDP", "year", "population")
+
+# either version of the example plot works
+example.plot <- ggplot(data = test.dat3, aes(frame = year)) + geom_point(mapping = aes(x = population, y = GDP))
+example.plot <- ggplot(test.dat3, aes(population, GDP, frame=year)) + geom_point()
+
+gganimate(example.plot, "output.mp4")

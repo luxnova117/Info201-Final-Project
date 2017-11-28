@@ -5,8 +5,8 @@ library(jsonlite)
 
 
 
-dat = WDI(indicator='VC.PKP.TOTL.UN', country = "all", start=2010, end=2011)
-View(dat)
+#dat = WDI(indicator='VC.PKP.TOTL.UN', country = "all", start=2010, end=2011)
+#View(dat)
 
 getData <- function(the.indicator, countries, start.year, end.year){
   if(missing(countries)){
@@ -35,10 +35,25 @@ getCountryCodes <- function(){
   countries.name <- unlist(countries.name)
   
   countries.data <- list(name = countries.name, code = countries.code)
-  return(data.frame(countries.data))
+  View(countries.data)
+  countries.data <- data.frame(countries.data, stringsAsFactors = FALSE)
+  return(countries.data)
 }
 
-country.codes <- getCountryCodes()
+getNewCountryCodes <- function(){
+  countries.response <- GET("https://api.printful.com/countries")
+  countries.response.content <- content(countries.response,"text")
+  countries.response.data <- fromJSON(countries.response.content)
+  countries <- countries.response.data$result
+  
+  countries.code <- countries$code
+  countries.name <- countries$name
+  countries.data <- list(name = countries.name, code = countries.code)
+  countries.data <- data.frame(countries.data, stringsAsFactors = FALSE)
+  return(countries.data)
+}
+
+country.codes <- getNewCountryCodes()
 
 indicators <- list("GDP" = "NY.GDP.MKTP.CD",
                    "GDP_per_capita" = "NY.GDP.PCAP.CD",
