@@ -4,7 +4,7 @@ library(plotly)
 my.ui <- fluidPage(
   
   # title
-  titlePanel("Nutrition of Cereals"),
+  titlePanel("World Bank Data"),
   
   sidebarLayout(
     sidebarPanel(
