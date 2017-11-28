@@ -14,12 +14,13 @@ source("WDI_data_wrangling.R")
 us.code <- (filter(country.codes, name == "United States") %>% select(code))[[1]]
 test.dat <- getData(indicators$GDP, us.code)
 test.dat2 <- getData(indicators$population_total, us.code)
-#test.dat2 <- select()
+
 
 test.dat3 <- left_join(test.dat, test.dat2, by = c("country", "year", "iso2c"))
+colnames(test.dat3) <- c("country_code", "country", "GDP", "year", "population")
 
-example.plot <- ggplot(data = test.dat3) + geom_point(mapping = aes(x = SP.POP.TOTL, y = NY.GDP.MKTP.CD, frame = year), color = "blue")
+# either version of the example plot works
+example.plot <- ggplot(data = test.dat3, aes(frame = year)) + geom_point(mapping = aes(x = population, y = GDP))
+example.plot <- ggplot(test.dat3, aes(population, GDP, frame=year)) + geom_point()
 
-example.plot <- ggplot(test.dat3, aes(SP.POP.TOTL, NY.GDP.MKTP.CD, frame=year)) + geom_point()
-
-gganimate(example.plot)
+gganimate(example.plot, "output.mp4")
