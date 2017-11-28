@@ -58,4 +58,3 @@ indicators <- list("GDP" = "NY.GDP.MKTP.CD",
                    "refugee_pupulation_origin" = "SM.POP.REFG.OR",
                    "outbound_mobile_students" = "UIS.OE.56.40510")
 
-# hello testing testing gang gang
