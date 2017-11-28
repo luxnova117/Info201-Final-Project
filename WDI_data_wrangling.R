@@ -8,6 +8,9 @@ library(jsonlite)
 #dat = WDI(indicator='VC.PKP.TOTL.UN', country = "all", start=2010, end=2011)
 #View(dat)
 
+# Use the "indicators" list to select which type of data you want to be returned as a table in the.indicator
+# For example, to get the life expectancy total of Austrailia for 02-12 
+# pass getData(indicators$life_expectancy_total, "AU", 2002, 2012)
 getData <- function(the.indicator, countries, start.year, end.year){
   if(missing(countries)){
     countries = "all"
