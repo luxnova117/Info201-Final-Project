@@ -1,5 +1,4 @@
 Rough idea of what data visualization will look like: 
-  
 qqplot allows for comparison of two data sets and does so by comparing their quantiles. 
 Even if both data sets do not contain the same number of values, qqplot automatically does
 interpolation to create extra values for the smaller set. 
