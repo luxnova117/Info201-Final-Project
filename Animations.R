@@ -4,8 +4,10 @@ library(magick)
 library(animation)
 library(installr)
 
-
-install.ImageMagick(URL = "https://www.imagemagick.org/script/download.php")
+# Uncomment the following and run it
+# install.ImageMagick(URL = "https://www.imagemagick.org/script/download.php") MAKE SURE TO INSTALL LEGACY FILES
+# also install all the packages that I have if you haven't
+# also please update to R version 3.4.2
 
 source("WDI_data_wrangling.R")
 
