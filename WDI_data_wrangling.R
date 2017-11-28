@@ -35,7 +35,8 @@ getCountryCodes <- function(){
   countries.name <- unlist(countries.name)
   
   countries.data <- list(name = countries.name, code = countries.code)
-  return(data.frame(countries.data))
+  countries.data <- data.frame(countries.data, stringsAsFactors = FALSE)
+  return(countries.data)
 }
 
 country.codes <- getCountryCodes()
