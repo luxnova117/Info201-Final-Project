@@ -56,7 +56,7 @@ getNewCountryCodes <- function(){
   return(countries.data)
 }
 
-country.codes <- getCountryCodes()
+country.codes <- getNewCountryCodes()
 
 indicators <- list("GDP" = "NY.GDP.MKTP.CD",
                    "GDP_per_capita" = "NY.GDP.PCAP.CD",
