@@ -4,7 +4,7 @@ library(plotly)
 my.ui <- fluidPage(
   
   # title
-  titlePanel("World Bank Data"),
+  titlePanel("Where are people moving to these days? Who is moving and how has it changed over time?"),
   
   sidebarLayout(
     sidebarPanel(
@@ -23,7 +23,7 @@ my.ui <- fluidPage(
       
       # a checkbox input seems fairly appropriate, it would let the user choose 
       # what they want to view from the data very specifically
-      checkboxInput(inputId, label, value = FALSE, width = NULL)
+      checkboxInput("value", label, value = FALSE, width = NULL)
     ),
     
     mainPanel(
