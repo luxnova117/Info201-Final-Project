@@ -1,6 +1,8 @@
 library(shiny)
 library(plotly)
 
+source("WDI_data_wrangling.R")
+
 my.ui <- fluidPage(
   
   # title
@@ -15,6 +17,10 @@ my.ui <- fluidPage(
                     "Net Immigration" = "SM.POP.NETM",
                     "College Education Immigration" = "SM.EMI.TERT.ZS"
                   )
+      ),
+      
+      selectInput('dataset', "Choose Country", 
+                  choices = country.codes$name
       ),
       
       # a slider would let the user change the range they are wanting to view

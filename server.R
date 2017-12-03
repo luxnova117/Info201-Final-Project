@@ -12,6 +12,8 @@ source("WDI_data_wrangling.R")
 migration.data <- getData("SM.POP.NETM", start.year = 2000, end.year = 2005)
 migration.data <- na.omit(migration.data)
 
+
+
 df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv', stringsAsFactors = FALSE)
 data.w.codes <- left_join(migration.data, df, by = c("country" = "COUNTRY"))
 migration <- na.omit(data.w.codes)
