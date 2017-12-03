@@ -10,8 +10,11 @@ my.ui <- fluidPage(
     sidebarPanel(
       
       # select would let the user choose a country, income type, or some other variable to display
-      selectInput('value_name', "Title or Question goes here", 
-                  choices = list()
+      selectInput('dataset', "Make these choices into different tabs", 
+                  choices = list(
+                    "Net Immigration" = "SM.POP.NETM",
+                    "College Education Immigration" = "SM.EMI.TERT.ZS"
+                  )
       ),
       
       # a slider would let the user change the range they are wanting to view
@@ -23,7 +26,7 @@ my.ui <- fluidPage(
       
       # a checkbox input seems fairly appropriate, it would let the user choose 
       # what they want to view from the data very specifically
-      checkboxInput("value", label, value = FALSE, width = NULL)
+      checkboxInput("value", "label", value = FALSE, width = NULL)
     ),
     
     mainPanel(

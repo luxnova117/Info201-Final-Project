@@ -14,7 +14,7 @@ migration.data <- na.omit(migration.data)
 
 df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv', stringsAsFactors = FALSE)
 data.w.codes <- left_join(migration.data, df, by = c("country" = "COUNTRY"))
-migration <- na.omit(data.w.codes)S
+migration <- na.omit(data.w.codes)
 
 # new stuff
 g <- list(
@@ -25,7 +25,7 @@ g <- list(
 
 p <- plot_geo(migration) %>%
   add_trace(
-    z = ~SM.POP.NETM, color = ~SM.POP.NETM, colors = 'Blues', locations = ~CODE,
+    z = ~SM.POP.NETM, color = ~SM.POP.NETM, colors = 'RdYlGn', locations = ~CODE,
     text = ~paste0(migration$SM.POP.NETM), type = "choropleth"
   ) %>%
   layout(
@@ -40,14 +40,7 @@ p <- plot_geo(migration) %>%
 shinyServer(function(input, output) {
   
   # this bit renders the plot to be displayed
-  output$plot <- renderPlotly({
-    
-    plot_ly(x = "", 
-            y = "",
-            type="scatter") %>% 
-      layout(xaxis=list(title=""), title = "") 
-    
-  })
+  output$plot <- renderPlotly({p})
   
 })
 
