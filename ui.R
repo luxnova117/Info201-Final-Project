@@ -23,12 +23,15 @@ my.ui <- fluidPage(
                   choices = country.codes$name
       ),
       
-      # a slider would let the user change the range they are wanting to view
-      sliderInput("value_name2",
-                  "Title Goes Here",
-                  min = 0,
-                  max = 15,
-                  value = 15),
+      # a slider to change the year dataset displayed
+      # years from 1962 to 2012 that jumps by 5
+      sliderInput(inputId = "year",
+                  label = "Year:",
+                  min = 1962,
+                  max = 2012,
+                  value = 15,
+                  step = 5,
+                  sep = ""),
       
       # a checkbox input seems fairly appropriate, it would let the user choose 
       # what they want to view from the data very specifically
