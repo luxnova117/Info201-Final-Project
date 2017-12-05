@@ -63,18 +63,18 @@ shinyServer(function(input, output) {
   
   
   # this bit renders the plot to be displayed
-  output$plot <- renderPlotly <- ({
+  output$plot <- renderPlotly ({
     
-    plot_geo(map.data) %>%
+    plot_geo(map.data()) %>%
       add_trace(
         z = ~SM.POP.NETM,
         color = ~SM.POP.NETM,
         colors = 'RdYlGn',
         locations = ~CODE,
-        text = ~paste0(migration$SM.POP.NETM),
+        #text = ~SM.POP.NETM,
         type = "choropleth"
       ) %>%
-    #colorbar(title = "Number of People (Million)") %>%
+    colorbar(title = "Number of People (Million)") %>%
       layout(
         title = 'Migration Map',
         geo = g
