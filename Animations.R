@@ -23,4 +23,4 @@ colnames(test.dat3) <- c("country_code", "country", "GDP", "year", "population")
 example.plot <- ggplot(data = test.dat3, aes(frame = year)) + geom_point(mapping = aes(x = population, y = GDP))
 example.plot <- ggplot(test.dat3, aes(population, GDP, frame=year)) + geom_point()
 
-gganimate(example.plot, "output.mp4")
+gganimate(example.plot)
