@@ -1,29 +1,41 @@
 library(shiny)
 library(plotly)
 
+source("WDI_data_wrangling.R")
+
 my.ui <- fluidPage(
   
   # title
-  titlePanel("World Bank Data"),
+  titlePanel("Where are people moving to these days? Who is moving and how has it changed over time?"),
   
   sidebarLayout(
     sidebarPanel(
       
       # select would let the user choose a country, income type, or some other variable to display
-      selectInput('value_name', "Title or Question goes here", 
-                  choices = list()
+      selectInput('dataset', "Make these choices into different tabs", 
+                  choices = list(
+                    "Net Immigration" = "SM.POP.NETM",
+                    "College Education Immigration" = "SM.EMI.TERT.ZS"
+                  )
       ),
       
-      # a slider would let the user change the range they are wanting to view
-      sliderInput("value_name2",
-                  "Title Goes Here",
-                  min = 0,
-                  max = 15,
-                  value = 15),
+      selectInput('dataset', "Choose Country", 
+                  choices = country.codes$name
+      ),
+      
+      # a slider to change the year dataset displayed
+      # years from 1962 to 2012 that jumps by 5
+      sliderInput(inputId = "year",
+                  label = "Year:",
+                  min = 1962,
+                  max = 2012,
+                  value = 15,
+                  step = 5,
+                  sep = ""),
       
       # a checkbox input seems fairly appropriate, it would let the user choose 
       # what they want to view from the data very specifically
-      checkboxInput(inputId, label, value = FALSE, width = NULL)
+      checkboxInput("value", "label", value = FALSE, width = NULL)
     ),
     
     mainPanel(
