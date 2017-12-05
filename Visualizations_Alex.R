@@ -6,7 +6,7 @@ source("WDI_data_wrangling.R")
 
 
 # This is a function on the plotly website that calculates frames
-accumulate_by <- functlll..ion(dat, var) {
+accumulate_by <- function(dat, var) {
   var <- lazyeval::f_eval(var, dat)
   lvls <- plotly:::getLevels(var)
   dats <- lapply(seq_along(lvls), function(x) {
