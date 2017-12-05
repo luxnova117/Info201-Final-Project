@@ -2,7 +2,7 @@ library(WDI)
 library(dplyr)
 library(httr)
 library(jsonlite)
-
+library(tidyr)
 
 
 #dat = WDI(indicator='VC.PKP.TOTL.UN', country = "all", start=2010, end=2011)
@@ -53,7 +53,16 @@ getNewCountryCodes <- function(){
   return(countries.data)
 }
 
+continents.response <- GET("http://country.io/continent.json")
+continents.response.content <- content(continents.response,"text")
+continents <- fromJSON(continents.response.content)
+continents <- data.frame(continents)
+continents <- gather(continents, key = "code", value = "continent")
+
+
 country.codes <- getNewCountryCodes()
+
+country.codes <- left_join(country.codes, continents, by = "code")
 
 indicators <- list("GDP" = "NY.GDP.MKTP.CD",
                    "GDP_per_capita" = "NY.GDP.PCAP.CD",

@@ -1,42 +1,35 @@
 library(ggplot2)
 library(plotly)
+library(dplyr)
 
 source("WDI_data_wrangling.R")
 
-dat1 <- getData("SE.PRM.ENRL", country.codes$code[1:20])
-dat1 <- filter(dat1, !(is.na(SE.PRM.ENRL)))
-#colnames(gross.enroll.num)[3] <- "enrollment"
 
-dat2 <- getData("SP.DYN.TFRT.IN", country.codes$code[1:20])
-dat2 <- filter(dat2, !(is.na(SP.DYN.TFRT.IN)))
-#colnames(unemployment.per)[3] <- "unemployment_percent"
-dat3 <- getData("NY.GDP.PCAP.CD", c("US", "CA", "FR", "EG", "VN"))
-dat3 <- filter(dat3, !(is.na(NY.GDP.PCAP.CD)))
 
-combined.dat <- left_join(dat1, dat2, by = c("year", "iso2c", "country"))
-combined.dat <- left_join(combined.dat, dat3, by = c("year", "iso2c", "country"))
+net.migration <- getData("SM.POP.NETM", c("CA", "US", "MX", "AU", "FR", "CO"))
+net.migration <- filter(net.migration, !(is.na(SM.POP.NETM)))
+colnames(net.migration)[3] <- "net_migration"
 
-usa.dat <- filter(combined.dat, country == "United States")
-# df <- data.frame(
-#   x = c(1,2,3,4), 
-#   y = c(1,2,3,4), 
-#   f = c(1,2,3,4)
-# )
-# 
-# df2 <- data.frame(
-#   x = c(1,3,5,7,9),
-#   y = c(2,4,6,8,10),
-#   f = c(1,2,3,4,5)
-# )
-# p <- ggplot(df, aes(df2$x, df2$y)) +
-#   geom_point(aes(frame = f))
+gdp.per.cap.growth <- getData("NY.GDP.PCAP.KD.ZG", c("CA", "US", "MX", "AU", "FR", "CO"))
+gdp.per.cap.growth <- filter(gdp.per.cap.growth, !(is.na(NY.GDP.PCAP.KD.ZG)))
+colnames(gdp.per.cap.growth)[3] <- "gdp_per_cap_growth"
 
-# p <- ggplotly(p)
-plot <- ggplot(combined.dat, aes(x = SP.POP.TOTL, y = SP.DYN.TFRT.IN, frame = year, color = country)) +
-  geom_point(aes(size = NY.GDP.PCAP.CD )) + geom_smooth(mapping = aes(x = usa.dat$SP.POP.TOTL, y = usa.dat$SP.DYN.TFRT.IN))
+combined.dat <- left_join(net.migration, gdp.per.cap.growth, by = c("iso2c", "country"))
+combined.dat$net_migration <- combined.dat$net_migration / 1000000
+colnames(combined.dat)[3] <- "net_migration_millions"
+combined.dat <- filter(combined.dat, year.y == year.x)
+combined.dat <- select(combined.dat, iso2c, country, net_migration_millions, gdp_per_cap_growth, year.y)
+colnames(combined.dat)[5] <- "year"
 
-plot <- ggplotly(plot)
 
-plot2 <- ggplot(dat1, aes(x = year, y = SE.PRM.ENRL, frame = year, color = country)) + geom_smooth()
 
-plot2 <- ggplotly(plot2)
+
+plot <- ggplot(combined.dat, aes(x = gdp_per_cap_growth, y = net_migration_millions, frame = year, color = country)) +
+  geom_point()
+
+plot <- ggplotly(plot) %>% layout(xaxis = list(title = "GDP Per Capita Growth"), yaxis = list(title = "Net Migration (millions)"))
+
+plot2 <- ggplot(combined.dat, aes(x = year, y = net_migration_millions, frame = year, color = country)) +
+  geom_point()
+
+plot2 <- ggplotly(plot2) %>% layout(xaxis = list(title = "Year"), yaxis = list(title = "Net Migration (millions)"))
