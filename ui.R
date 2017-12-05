@@ -3,6 +3,7 @@ library(dplyr)
 library(plotly)
 
 source("WDI_data_wrangling.R")
+
 my.ui <- fluidPage(
   
   # title
@@ -10,14 +11,16 @@ my.ui <- fluidPage(
   
   sidebarLayout(
     sidebarPanel(
-      
-      mainPanel(
-        plotlyOutput("plot")
-      )
+      checkboxGroupInput(chosen_country, 'check all the countries you wish to compare', choices = net.migration$country)
+    ),
+    mainPanel(
+      plotlyOutput("plot")
     )
-    
   )
 )
+    
+  
+
   
   shinyUI(my.ui)
   

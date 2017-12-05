@@ -21,6 +21,10 @@ combined.dat <- filter(combined.dat, year.y == year.x)
 combined.dat <- select(combined.dat, iso2c, country, net_migration_millions, gdp_per_cap_growth, year.y)
 colnames(combined.dat)[5] <- "year"
 
+international.migrant.stock <- getData('SM.POP.TOTL')
+international.migrant.stock <- na.omit(international.migrant.stock)
+
+
 
 
 
