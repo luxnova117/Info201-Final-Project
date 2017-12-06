@@ -8,7 +8,7 @@ library("plotly")
 library("RColorBrewer")
 
 source("WDI_data_wrangling.R")
-
+source("Visualizations_Alex.R")
 
 #
 # # new stuff
@@ -17,6 +17,15 @@ g <- list(
    showcoastlines = TRUE,
    scope = "world"
 )
+
+accumulate_by <- function(dat, var) {
+  var <- lazyeval::f_eval(var, dat)
+  lvls <- plotly:::getLevels(var)
+  dats <- lapply(seq_along(lvls), function(x) {
+    cbind(dat[var %in% lvls[seq(1, x)], ], frame = lvls[[x]])
+  })
+  dplyr::bind_rows(dats)
+}
 
 # p <- plot_geo(migration) %>%
 #   add_trace(
@@ -61,6 +70,16 @@ shinyServer(function(input, output) {
     return(data.w.codes)
   })
   
+  plot1.data <- reactive({
+    selected.country <- input$con
+    selected.code <- filter(country.codes, name == selected.country) %>% select(code)
+    migration.data <- getData("SM.POP.NETM", countries = selected.code) %>% na.omit()
+    colnames(migration.data)[3] <- "net_migration"
+    migration.data$net_migration <- migration.data$net_migration / 1000000
+    colnames(migration.data)[3] <- "net_migration_millions"
+    return(migration.data)
+  })
+  
   
   # this bit renders the plot to be displayed
   output$plot <- renderPlotly ({
@@ -82,6 +101,13 @@ shinyServer(function(input, output) {
 
     
     })
+  # just ues plotly jeez 
+  output$plot2 <- renderPlotly({
+    (ggplot(plot1.data(), aes(x = year, y = net_migration_millions)) +
+      geom_line()) %>%
+    ggplotly(dynamicTicks = TRUE) %>% layout(xaxis = list(title = "Year"), yaxis = list(title = "Net Migration (millions)")) %>%
+      animation_opts(frame = 150, transition = 0, redraw = FALSE)
+  })
   
 })
 

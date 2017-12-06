@@ -19,7 +19,7 @@ my.ui <- fluidPage(
                   )
       ),
       
-      selectInput('dataset', "Choose Country", 
+      selectInput('con', "Choose Country", 
                   choices = country.codes$name
       ),
       
@@ -40,7 +40,8 @@ my.ui <- fluidPage(
     ),
     
     mainPanel(
-      plotlyOutput("plot")
+      plotlyOutput("plot"),
+      plotlyOutput("plot2")
     )
   )
   

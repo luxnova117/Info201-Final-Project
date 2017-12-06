@@ -5,8 +5,8 @@ library(jsonlite)
 library(tidyr)
 
 
-#dat = WDI(indicator='VC.PKP.TOTL.UN', country = "all", start=2010, end=2011)
-#View(dat)
+
+
 
 # Use the "indicators" list to select which type of data you want to be returned as a table in the.indicator
 # For example, to get the life expectancy total of Austrailia for 02-12 
@@ -57,7 +57,7 @@ getNewCountryCodes <- function(){
 }
 
 continents.response <- GET("http://country.io/continent.json")
-continents.response.content <- content(continents.response,"text")
+continents.response.content <- content(continents.response,"text", encoding = "UTF-8")
 continents <- fromJSON(continents.response.content)
 continents <- data.frame(continents)
 continents <- gather(continents, key = "code", value = "continent")
