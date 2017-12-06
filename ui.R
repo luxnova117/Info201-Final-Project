@@ -11,10 +11,10 @@ my.ui <- fluidPage(
   
   sidebarLayout(
     sidebarPanel(
-      checkboxGroupInput("chosen_country", 'check all the countries you wish to compare', choices = net.migration$country)
+      #checkboxGroupInput("chosen_country", 'check all the countries you wish to compare', choices = net.migration$country)
     ),
     mainPanel(
-      plotlyOutput("plot")
+      plotOutput("plot")
     )
   )
 )

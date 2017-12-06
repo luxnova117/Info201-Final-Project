@@ -2,16 +2,21 @@ library(shiny)
 library(dplyr)
 library(tidyr)
 
-library("ggplot2")
+library(ggplot2)
 #library("maps")
 library("plotly")
 library("RColorBrewer")
 
 source("WDI_data_wrangling.R")
-source("Visualizations_Alex.R")
+#source("Visualizations_Alex.R")
 net.migration <- getData("SM.POP.NETM")
 net.migration <- na.omit(net.migration)
 colnames(net.migration)[3] <- "net_migration"
+a <- filter(net.migration, country == "United States")
+
+
+
+
 
 international.migrant.stock <- getData('SM.POP.TOTL')
 international.migrant.stock <- na.omit(international.migrant.stock)
@@ -26,19 +31,15 @@ accumulate_by <- function(dat, var) {
 }
 
 shinyServer(function(input, output){
-  net.mig <- reactive({
-    temp <- filter(net.migration, country == input$chosen_country)
-    temp$frame <- accumulate_by(net.mig, ~year)
-    
-    return(temp)
-  })
-    
-    
-    
-    
+  # net.mig <- reactive({
+  #   temp <- filter(net.migration, country == input$chosen_country)
+  #   #temp$frame <- accumulate_by(net.mig, ~year)
+  #   
+  #   return(temp)
+  # })
     
   output$plot <- renderPlotly({
-    plot2 <- ggplot(net.migration, aes(x = year, y = net_migration, frame = frame, color = country)) +
+    plot2 <- ggplot(a, aes(x = year, y = net_migration, color = country)) +
       geom_line()
     # plot2 <- ggplotly(plot2) %>% layout(xaxis = list(title = "Year"), yaxis = list(title = "Net Migration (millions)")) %>%
     #   animation_opts(frame = 200, transition = 0, redraw = FALSE)
