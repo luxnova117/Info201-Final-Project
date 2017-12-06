@@ -54,7 +54,7 @@ my.ui <- fluidPage(
                ),
                
                mainPanel(plotlyOutput("plot"),
-                         plotlyOutput("plot2")
+                         plotlyOutput("plot3")
                )
              )
     )
