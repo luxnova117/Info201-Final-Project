@@ -18,14 +18,14 @@ g <- list(
    scope = "world"
 )
 
-accumulate_by <- function(dat, var) {
-  var <- lazyeval::f_eval(var, dat)
-  lvls <- plotly:::getLevels(var)
-  dats <- lapply(seq_along(lvls), function(x) {
-    cbind(dat[var %in% lvls[seq(1, x)], ], frame = lvls[[x]])
-  })
-  dplyr::bind_rows(dats)
-}
+# accumulate_by <- function(dat, var) {
+#   var <- lazyeval::f_eval(var, dat)
+#   lvls <- plotly:::getLevels(var)
+#   dats <- lapply(seq_along(lvls), function(x) {
+#     cbind(dat[var %in% lvls[seq(1, x)], ], frame = lvls[[x]])
+#   })
+#   dplyr::bind_rows(dats)
+# }
 
 # p <- plot_geo(migration) %>%
 #   add_trace(
@@ -104,9 +104,10 @@ shinyServer(function(input, output) {
   # just ues plotly jeez 
   output$plot2 <- renderPlotly({
     (ggplot(plot1.data(), aes(x = year, y = net_migration_millions)) +
-      geom_line()) %>%
-    ggplotly(dynamicTicks = TRUE) %>% layout(xaxis = list(title = "Year"), yaxis = list(title = "Net Migration (millions)")) %>%
-      animation_opts(frame = 150, transition = 0, redraw = FALSE)
+      geom_line()) 
+    # %>%
+    # ggplotly(dynamicTicks = TRUE) %>% layout(xaxis = list(title = "Year"), yaxis = list(title = "Net Migration (millions)")) %>%
+    #   animation_opts(frame = 150, transition = 0, redraw = FALSE)
   })
   
 })
