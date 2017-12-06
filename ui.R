@@ -31,7 +31,8 @@ my.ui <- fluidPage(
                   max = 2012,
                   value = 15,
                   step = 5,
-                  sep = ""),
+                  sep = "",
+                  animate = TRUE),
       
       # a checkbox input seems fairly appropriate, it would let the user choose 
       # what they want to view from the data very specifically
