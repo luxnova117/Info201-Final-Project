@@ -10,6 +10,7 @@ source("WDI_data_wrangling.R")
 
 my.ui <- fluidPage(
   theme = shinytheme("cyborg"),
+  
   tabsetPanel(
     tabPanel("net migration",
 
@@ -30,12 +31,13 @@ my.ui <- fluidPage(
                  
                  # a checkbox input seems fairly appropriate, it would let the user choose 
                  # what they want to view from the data very specifically
-                 selectInput("con", 'check all the countries you wish to compare', choices = country.codes$name)
+                 selectInput("con", 'check all the countries you wish to compare', choices = country.codes.net.mig$name)
 
                ),
                
                mainPanel(plotlyOutput("plot"),
-                         plotlyOutput("plot2")
+                         plotlyOutput("plot2"),
+                         plotlyOutput("plot4")
                )
              )
     ),
@@ -66,8 +68,10 @@ my.ui <- fluidPage(
                )
              )
     )
+    
 
-  )
+  ),
+  verbatimTextOutput("click")
 )
 
 

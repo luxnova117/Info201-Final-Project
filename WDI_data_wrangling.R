@@ -64,24 +64,10 @@ continents <- gather(continents, key = "code", value = "continent")
 
 
 country.codes <- getNewCountryCodes()
-
 country.codes <- left_join(country.codes, continents, by = "code")
+net.mig <- getData('SM.POP.NETM', start.year = 2012, end.year = 2012) %>% na.omit()
+net.mig <- net.mig[47:length(net.mig$country),]
+country.codes.net.mig <- filter(country.codes, country.codes$name %in% net.mig$country)
 
-indicators <- list("GDP" = "NY.GDP.MKTP.CD",
-                   "GDP_per_capita" = "NY.GDP.PCAP.CD",
-                   "GDP_annual_growth" = "NY.GDP.MKTP.KD.ZG",
-                   "GDP_annual_growth_per_capita" = "NY.GDP.PCAP.CD",
-                   "military_expenditures_pGDP" = "MS.MIL.XPND.GD.ZS", #Military expenditures %GDP
-                   "military_expenditures" = "MS.MIL.XPND.CN",
-                   "military_expenditures_pgovtexpend" = "MS.MIL.XPND.ZS",
-                   "population_total" = "SP.POP.TOTL",
-                   "population_female" = "SP.POP.TOTL.FE.IN",
-                   "population_male" = "SP.POP.TOTL.MA.IN",
-                   "life_expectancy_female" = "SP.DYN.LE00.FE.IN",
-                   "life_expectancy_male" = "SP.DYN.LE00.MA.IN",
-                   "life_expectancy_total" = "SP.DYN.LE00.IN",
-                   "gender_parity_index" = "UIS.LR.AG15T99.GPI",
-                   "refugee_population_asylum" = "SM.POP.REFG",
-                   "refugee_pupulation_origin" = "SM.POP.REFG.OR",
-                   "outbound_mobile_students" = "UIS.OE.56.40510")
+
 
