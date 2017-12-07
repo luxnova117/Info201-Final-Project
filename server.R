@@ -107,7 +107,7 @@ shinyServer(function(input, output) {
   })
   # if net migration chosen, renders graph
   output$plot3 <- renderPlotly({
-    plot_ly(international.migrant.stock.data.for.graph, x = ~year, y = ~migrant_stock_millions, type = 'scatter', mode = 'lines+markers') %>%
+    plot_ly(international.migrant.stock.data.for.graph(), x = ~year, y = ~migrant_stock_millions, type = 'scatter', mode = 'lines+markers') %>%
       layout(title = 'Net Migrant Stock Per Year', xaxis = list(title = "Year"), yaxis = list(title = "Net Migrant Stock"))
   })
 
