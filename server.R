@@ -31,18 +31,11 @@ colnames(migration.data)[3] <- "net_migration_millions"
 df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv', stringsAsFactors = FALSE)
 
 makeMapData <- function(year, indicator) {
-  migration.data <- getData(indicator, start.year = year, end.year = year) %>%
-    na.omit()
-  
-  migration.data$country[208] = "Russia"
-  migration.data$country[92] = "Congo, Democratic Republic of the"
-  migration.data$country[106] = "Egypt"
-  migration.data$country[138] = "Iran"
-  
-  
-  data.w.codes <- left_join(migration.data, df, by = c("country" = "COUNTRY")) %>%
-    na.omit()
-  return(data.w.codes)
+  migration.all.data <- getData(indicator, start.year = year, end.year = year) %>%
+    na.omit() 
+  migration.data <- migration.data[47:261,]
+
+  return(migration.data)
 }
 
 makeMap <- function(data, indicator, the.title) {
@@ -51,7 +44,8 @@ makeMap <- function(data, indicator, the.title) {
       z = ~eval(parse(text=indicator)),
       color = ~eval(parse(text=indicator)),
       colors = 'RdYlGn',
-      locations = ~CODE,
+      locations = ~country,
+      locationmode = "country names",
       text = ~paste(country, ": ", format(eval(parse(text=indicator)), big.mark=",", trim=TRUE)),
       type = "choropleth"
     ) %>%
