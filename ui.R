@@ -1,12 +1,12 @@
 library(shiny)
 library(plotly)
-library(DT)
+library(shinythemes)
 
 
 source("WDI_data_wrangling.R")
 
 
-my.ui <- fluidPage(
+my.ui <- fluidPage(theme = shinytheme("cyborg"),
   titlePanel("Where are people moving to these days? Who is moving and how has it changed over time?"),
   tabsetPanel(
 
@@ -103,7 +103,7 @@ my.ui <- fluidPage(
                              value = 1990,
                              sep = "",
                              animate = TRUE),
-                 p("Paragraph goes here")
+                 p("This data displays where refugees are being displaced to. Refugees are people who are recognized as refugees under the 1951 Convention Relating to the Status of Refugees or its 1967 Protocol, the 1969 Organization of African Unity Convention Governing the Specific Aspects of Refugee Problems in Africa, people recognized as refugees in accordance with the UNHCR statute, people granted refugee-like humanitarian status, and people provided temporary protection.")
                ),
                
                mainPanel(
@@ -124,7 +124,7 @@ my.ui <- fluidPage(
                              value = 1990,
                              sep = "",
                              animate = TRUE),
-                 p("Paragraph goes here")
+                 p("This data shows the countries where refugees are leaving from. Refugees are people who are recognized as refugees under the 1951 Convention Relating to the Status of Refugees or its 1967 Protocol, the 1969 Organization of African Unity Convention Governing the Specific Aspects of Refugee Problems in Africa, people recognized as refugees in accordance with the UNHCR statute, people granted refugee-like humanitarian status, and people provided temporary protection.")
                ),
                
                mainPanel(
