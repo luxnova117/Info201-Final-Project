@@ -27,6 +27,7 @@ migration.data$net_migration <- migration.data$net_migration / 1000000
 colnames(migration.data)[3] <- "net_migration_millions"
 
 
+
 df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv', stringsAsFactors = FALSE)
 
 makeMapData <- function(year, indicator) {
@@ -61,10 +62,13 @@ makeMap <- function(data, indicator, the.title) {
     )
 }
 
+
 shinyServer(function(input, output) {
   
   net.migration.data <- reactive({
+
     return(makeMapData(input$year, "SM.POP.NETM"))
+
   })
 
   migrant.stock.data <- reactive({
@@ -126,7 +130,7 @@ shinyServer(function(input, output) {
   })
   # if net migration chosen, renders graph
   output$plot3 <- renderPlotly({
-    plot_ly(international.migrant.stock.data.for.graph, x = ~year, y = ~migrant_stock_millions, type = 'scatter', mode = 'lines+markers') %>%
+    plot_ly(international.migrant.stock.data.for.graph(), x = ~year, y = ~migrant_stock_millions, type = 'scatter', mode = 'lines+markers') %>%
       layout(title = 'Net Migrant Stock Per Year', xaxis = list(title = "Year"), yaxis = list(title = "Net Migrant Stock"))
   })
 
