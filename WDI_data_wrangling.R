@@ -11,16 +11,7 @@ library(tidyr)
 # Use the "indicators" list to select which type of data you want to be returned as a table in the.indicator
 # For example, to get the life expectancy total of Austrailia for 02-12 
 # pass getData(indicators$life_expectancy_total, "AU", 2002, 2012)
-getData <- function(the.indicator, countries, start.year, end.year){
-  if(missing(countries)){
-    countries = "all"
-  }
-  if(missing(start.year)){
-    start.year = 1960
-  }
-  if(missing(end.year)){
-    end.year = 2012
-  }
+getData <- function(the.indicator, countries = "all", start.year = 1960, end.year = 2012){
   dat <- WDI(indicator = the.indicator, country = countries, start = start.year, end = end.year)
   return(dat)
 }
@@ -67,7 +58,7 @@ country.codes <- getNewCountryCodes()
 country.codes <- left_join(country.codes, continents, by = "code")
 net.mig <- getData('SM.POP.NETM', start.year = 2012, end.year = 2012) %>% na.omit()
 net.mig <- net.mig[47:length(net.mig$country),]
-country.codes <- filter(country.codes, country.codes$name %in% net.mig$country)
+country.codes.net.mig <- filter(country.codes, country.codes$name %in% net.mig$country) %>% arrange(name)
 
 link1 <- "https://github.com/vincentarelbundock/WDI"
 link2 <- "https://data.worldbank.org/indicator/SM.POP.REFG"
