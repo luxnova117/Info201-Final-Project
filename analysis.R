@@ -1,19 +1,15 @@
-
+# styling properties for map
 g <- list(
   showframe = FALSE,
   showcoastlines = TRUE,
   scope = "world"
 )
 
-
+# pulls data frame with the correct country codes 
 df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv', stringsAsFactors = FALSE)
 
-migration.data <- getData("SM.POP.NETM", countries = "US") %>% na.omit()
-colnames(migration.data)[3] <- "net_migration"
-migration.data$net_migration <- migration.data$net_migration / 1000000
-colnames(migration.data)[3] <- "net_migration_millions"
 
-
+# Accepts an input year and an indicator and returns a data set to make the map
 makeMapData <- function(year, indicator) {
   migration.all.data <- getData(indicator, start.year = year, end.year = year) %>%
     na.omit() 
@@ -24,6 +20,8 @@ makeMapData <- function(year, indicator) {
   return(data.w.codes)
 }
 
+# Accepts the data from makeMapData function with the indicator, the title, and color scheme for the map.
+# Returns the world map.
 makeMap <- function(data, indicator, the.title, colorscheme) {
   plot_geo(data) %>%
     add_trace(
@@ -41,6 +39,9 @@ makeMap <- function(data, indicator, the.title, colorscheme) {
       geo = g
     )
 }
+
+# Accepts a country and an indicator 
+# Returns data for the graphs
 makeGraphData = function(coun, indicator){
   selected.code <- filter(country.codes, name == coun) %>% select(code)
   selected.data <- getData(indicator, countries = selected.code) %>% na.omit()
