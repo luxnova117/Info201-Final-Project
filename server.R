@@ -10,6 +10,7 @@ library("DT")
 
 source("WDI_data_wrangling.R")
 #source("Visualizations_Alex.R")
+source('overview.R')
 
 g <- list(
    showframe = FALSE,
@@ -124,15 +125,19 @@ shinyServer(function(input, output) {
   # if international stock migrant chosen, renders graph
   output$net.immigration.graph <- renderPlotly({
     
-    plot_ly(net.migration.data.for.graph(), x = ~year, y = ~net_migration_millions, type = "scatter", mode = "lines+markers") %>%
+    plot_ly(makeGraphData(input$con, 'SM.POP.NETM'), x = ~year, y = ~SM.POP.NETM, type = "scatter", mode = "lines+markers") %>%
             layout(title = "Net Immigration Per Year", xaxis = list(title = "Year"), yaxis = list(title = "Net Immigration (millions)")) %>%
             animation_opts(frame = 200, transition = 0, redraw = FALSE)
   })
   # if net migration chosen, renders graph
+
   output$migrant.stock.graph <- renderPlotly({
-    plot_ly(international.migrant.stock.data.for.graph(), x = ~year, y = ~migrant_stock_millions, type = 'scatter', mode = 'lines+markers') %>%
+    plot_ly(makeGraphData(input$con2,'SM.POP.TOTL'), x = ~year, y = ~SM.POP.TOTL, type = 'scatter', mode = 'lines+markers') %>%
       layout(title = 'Net Migrant Stock Per Year', xaxis = list(title = "Year"), yaxis = list(title = "Net Migrant Stock"))
   })
+  
+    
+  
 
 
 })
