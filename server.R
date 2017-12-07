@@ -148,11 +148,9 @@ shinyServer(function(input, output) {
     plot_ly(makeGraphData(input$con2,'SM.POP.TOTL'), x = ~year, y = ~SM.POP.TOTL, type = 'scatter', mode = 'lines+markers') %>%
       layout(title = 'Net Migrant Stock Per Year', xaxis = list(title = "Year"), yaxis = list(title = "Net Migrant Stock"))
   })
-  output$text <- renderText({
-    paste(text_file)
-  }
+  
     
-  )
+  
 
 
 })
