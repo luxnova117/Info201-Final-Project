@@ -27,10 +27,10 @@ shinyServer(function(input, output) {
     migration.data <- getData("SM.POP.NETM", start.year = input$year, end.year = input$year) %>% 
       na.omit()
     
-    migration.data$country[208] = "Russia"
-    migration.data$country[92] = "Congo, Democratic Republic of the"
-    migration.data$country[106] = "Egypt"
-    migration.data$country[138] = "Iran"
+    migration.data$country[[208]] = "Russia"
+    migration.data[[92, 'country']] <- "Congo, Democratic Republic of the"
+    migration.data[106, 'country'] <- "Egypt"
+    migration.data[138, 'country'] <- "Iran"
     
     data.w.codes <- left_join(migration.data, df, by = c("country" = "COUNTRY")) %>%
       na.omit()
