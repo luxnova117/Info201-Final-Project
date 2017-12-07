@@ -1,6 +1,5 @@
 library(shiny)
 library(plotly)
-library(DT)
 
 
 source("WDI_data_wrangling.R")

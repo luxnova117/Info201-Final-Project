@@ -45,7 +45,7 @@ makeMap <- function(data, indicator, the.title, colorscheme) {
       text = ~paste(country, ": ", format(eval(parse(text=indicator)), big.mark=",", trim=TRUE)),
       type = "choropleth"
     ) %>%
-    colorbar(title = "Number of People (Million)") %>%
+    colorbar(title = "Number of People <br />(Million)") %>%
     layout(
       title = the.title,
       geo = g
