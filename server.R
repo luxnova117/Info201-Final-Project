@@ -29,34 +29,55 @@ colnames(migration.data)[3] <- "net_migration_millions"
 
 df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv', stringsAsFactors = FALSE)
 
+makeMapData <- function(year, indicator) {
+  migration.data <- getData(indicator, start.year = year, end.year = year) %>%
+    na.omit()
+  
+  migration.data$country[208] = "Russia"
+  migration.data$country[92] = "Congo, Democratic Republic of the"
+  migration.data$country[106] = "Egypt"
+  migration.data$country[138] = "Iran"
+  
+  
+  data.w.codes <- left_join(migration.data, df, by = c("country" = "COUNTRY")) %>%
+    na.omit()
+  return(data.w.codes)
+}
 
+makeMap <- function(data, indicator, the.title) {
+  plot_geo(data) %>%
+    add_trace(
+      z = ~eval(parse(text=indicator)),
+      color = ~eval(parse(text=indicator)),
+      colors = 'RdYlGn',
+      locations = ~CODE,
+      text = ~paste(country, ": ", format(eval(parse(text=indicator)), big.mark=",", trim=TRUE)),
+      type = "choropleth"
+    ) %>%
+    colorbar(title = "Number of People (Million)") %>%
+    layout(
+      title = the.title,
+      geo = g
+    )
+}
 
 shinyServer(function(input, output) {
   
   net.migration.data <- reactive({
-    migration.data <- getData("SM.POP.NETM", start.year = input$year, end.year = input$year) %>%
-      na.omit()
-<<<<<<< HEAD
-    
-    migration.data$country[[208]] = "Russia"
-    migration.data[[92, 'country']] <- "Congo, Democratic Republic of the"
-    migration.data[106, 'country'] <- "Egypt"
-    migration.data[138, 'country'] <- "Iran"
-=======
-
-    migration.data$country[208] = "Russia"
-    migration.data$country[92] = "Congo, Democratic Republic of the"
-    migration.data$country[106] = "Egypt"
-    migration.data$country[138] = "Iran"
->>>>>>> 84f8d7e28237a34bb1d9e7c28b0d0e8595b2f5f9
-    
-
-    data.w.codes <- left_join(migration.data, df, by = c("country" = "COUNTRY")) %>%
-      na.omit()
-    return(data.w.codes)
+    return(makeMapData(input$year, "SM.POP.NETM"))
   })
 
-
+  migrant.stock.data <- reactive({
+    return(makeMapData(input$year2, "SM.POP.TOTL"))
+  })
+  
+  net.migration.map <- reactive({
+    return(makeMap(net.migration.data(), "SM.POP.NETM", "Net Migration"))
+  })
+  
+  migrant.stock.map <- reactive({
+    return(makeMap(migrant.stock.data(), "SM.POP.TOTL", "Migrant Stock"))
+  })
 
   international.migrant.stock.data.for.graph <- reactive({
     selected.country <- input$con2
@@ -86,25 +107,15 @@ shinyServer(function(input, output) {
   # if net migration chosen, renders map
   output$plot <- renderPlotly ({
 
-    plot_geo(net.migration.data()) %>%
-      add_trace(
-        z = ~SM.POP.NETM,
-        color = ~SM.POP.NETM,
-        colors = 'RdYlGn',
-        locations = ~CODE,
-        hoverinfo = 'text',
-        text = ~paste(country, ": ", format(SM.POP.NETM, big.mark=",", trim=TRUE)),
-        type = "choropleth"
-      ) %>%
-    colorbar(title = "Number of People (Million)") %>%
-      layout(
-        title = 'Migration Map',
-        geo = g
-      )
+    net.migration.map()
 
-
-
-    })
+  })
+  
+  output$plot4 <- renderPlotly ({
+    
+    migrant.stock.map()
+    
+  })
 
   # if international stock migrant chosen, renders graph
   output$plot2 <- renderPlotly({

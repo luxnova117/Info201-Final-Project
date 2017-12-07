@@ -45,9 +45,9 @@ my.ui <- fluidPage(
                  # years from 1962 to 2012 that jumps by 5
                  sliderInput(inputId = "year2",
                              label = "Year:",
-                             min = 1962,
-                             max = 2012,
-                             value = 15,
+                             min = 1960,
+                             max = 2015,
+                             value = 1960,
                              step = 5,
                              sep = "",
                              animate = TRUE),
@@ -59,7 +59,8 @@ my.ui <- fluidPage(
                ),
 
                mainPanel(
-                         plotlyOutput("plot3")
+                  plotlyOutput("plot4"),
+                  plotlyOutput("plot3")
                )
              )
     )
