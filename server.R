@@ -8,7 +8,7 @@ library("plotly")
 library("RColorBrewer")
 
 source("WDI_data_wrangling.R")
-
+#source("Visualizations_Alex.R")
 
 #
 # # new stuff
@@ -18,50 +18,75 @@ g <- list(
    scope = "world"
 )
 
+
 df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv', stringsAsFactors = FALSE)
+
+migration.data <- getData("SM.POP.NETM", countries = "US") %>% na.omit()
+colnames(migration.data)[3] <- "net_migration"
+migration.data$net_migration <- migration.data$net_migration / 1000000
+colnames(migration.data)[3] <- "net_migration_millions"
+
+
+df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv', stringsAsFactors = FALSE)
+
 
 
 shinyServer(function(input, output) {
   
-  map.data <- reactive({
-    migration.data <- getData("SM.POP.NETM", start.year = input$year, end.year = input$year) %>% 
+  net.migration.data <- reactive({
+    migration.data <- getData("SM.POP.NETM", start.year = input$year, end.year = input$year) %>%
       na.omit()
+<<<<<<< HEAD
     
     migration.data$country[[208]] = "Russia"
     migration.data[[92, 'country']] <- "Congo, Democratic Republic of the"
     migration.data[106, 'country'] <- "Egypt"
     migration.data[138, 'country'] <- "Iran"
+=======
+
+    migration.data$country[208] = "Russia"
+    migration.data$country[92] = "Congo, Democratic Republic of the"
+    migration.data$country[106] = "Egypt"
+    migration.data$country[138] = "Iran"
+>>>>>>> 84f8d7e28237a34bb1d9e7c28b0d0e8595b2f5f9
     
+
     data.w.codes <- left_join(migration.data, df, by = c("country" = "COUNTRY")) %>%
       na.omit()
     return(data.w.codes)
   })
-  
+
+
+
   international.migrant.stock.data.for.graph <- reactive({
-    selected.country <- input$con
-    #selected.code <- filter(country.codes, name == selected.country) %>% select(code)
-    migrant.stock.data <- getData("SM.POP.TOTL", countries = selected.country) %>% na.omit()
+    selected.country <- input$con2
+    selected.code <- filter(country.codes, name == selected.country) %>% select(code)
+    migrant.stock.data <- getData("SM.POP.TOTL", countries = selected.code) %>% na.omit()
     colnames(migrant.stock.data)[3] <- "migrant_stock"
     migrant.stock.data$migrant_stock <- migrant.stock.data$migrant_stock / 1000000
     colnames(migrant.stock.data)[3] <- "migrant_stock_millions"
     return(migrant.stock.data)
   })
-  
+
   net.migration.data.for.graph <- reactive({
     selected.country <- input$con
-    #selected.code <- filter(country.codes, name == selected.country) %>% select(code)
-    net.data <- getData("SM.POP.NETM", countries = selected.country) %>% na.omit()
+
+    selected.code <- filter(country.codes, name == selected.country) %>% select(code)
+    net.data <- getData("SM.POP.NETM", countries = selected.code) %>% na.omit()
     colnames(net.data)[3] <- "net_migration"
     net.data$net_migration <- net.data$net_migration / 1000000
     colnames(net.data)[3] <- "net_migration_millions"
     return(net.data)
   })
+
   
   
+
   # this bit renders the plot to be displayed
+  # if net migration chosen, renders map
   output$plot <- renderPlotly ({
-    
-    plot_geo(map.data()) %>%
+
+    plot_geo(net.migration.data()) %>%
       add_trace(
         z = ~SM.POP.NETM,
         color = ~SM.POP.NETM,
@@ -77,24 +102,24 @@ shinyServer(function(input, output) {
         geo = g
       )
 
-    
-  })
-  
-  # if net migration chosen, renders graph
-  output$plot2 <- renderPlotly({
-    (ggplot(international.migrant.stock.data.for.graph(), aes(x = ~year, y = ~migrant_stock_millions)) +
-       geom_line()) 
-    # %>%
-    # ggplotly(dynamicTicks = TRUE) %>% layout(xaxis = list(title = "Year"), yaxis = list(title = "Net Migration (millions)")) %>%
-    #   animation_opts(frame = 150, transition = 0, redraw = FALSE)
-  })
-  
+
+
+    })
+
   # if international stock migrant chosen, renders graph
-  output$plot3 <- renderPlotly({
-    (ggplot(net.migration.data.for.graph(), aes(x = ~year, y = ~net_migration_millions)) +
-       geom_line()) 
+  output$plot2 <- renderPlotly({
+    
+    plot_ly(net.migration.data.for.graph(), x = ~year, y = ~net_migration_millions, type = "scatter", mode = "lines+markers") %>%
+            layout(title = "Net Immigration Per Year", xaxis = list(title = "Year"), yaxis = list(title = "Net Immigration (millions)")) %>%
+            animation_opts(frame = 200, transition = 0, redraw = FALSE)
   })
-  
+  # if net migration chosen, renders graph
+  output$plot3 <- renderPlotly({
+    plot_ly(international.migrant.stock.data.for.graph, x = ~year, y = ~migrant_stock_millions, type = 'scatter', mode = 'lines+markers') %>%
+      layout(title = 'Net Migrant Stock Per Year', xaxis = list(title = "Year"), yaxis = list(title = "Net Migrant Stock"))
+  })
+
+
 })
 
 

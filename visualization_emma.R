@@ -10,3 +10,4 @@ colnames(combined_data) <- c('code', 'country', 'GPI', 'year', 'GDP.per.capita')
 
 trial <- ggplot(combined_data) + geom_point(mapping = aes(x=GPI, y=GDP.per.capita))
 trial
+
