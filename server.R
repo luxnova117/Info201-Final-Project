@@ -8,7 +8,7 @@ library("plotly")
 library("RColorBrewer")
 
 source("WDI_data_wrangling.R")
-source("Visualizations_Alex.R")
+#source("Visualizations_Alex.R")
 
 #
 # # new stuff
@@ -56,7 +56,12 @@ df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_wo
 # 
 # data.w.codes <- left_join(migration.data, df, by = c("country" = "COUNTRY")) %>%
                 #na.omit()
-
+#selected.country <- input$con
+#selected.code <- filter(country.codes, name == selected.country) %>% select(code)
+migration.data <- getData("SM.POP.NETM", countries = "US") %>% na.omit()
+colnames(migration.data)[3] <- "net_migration"
+migration.data$net_migration <- migration.data$net_migration / 1000000
+colnames(migration.data)[3] <- "net_migration_millions"
 
 
 shinyServer(function(input, output) {
@@ -103,10 +108,15 @@ shinyServer(function(input, output) {
     })
   # just ues plotly jeez 
   output$plot2 <- renderPlotly({
-    (ggplot(plot1.data(), aes(x = year, y = net_migration_millions)) +
-      geom_line()) %>%
-    ggplotly(dynamicTicks = TRUE) %>% layout(xaxis = list(title = "Year"), yaxis = list(title = "Net Migration (millions)")) %>%
-      animation_opts(frame = 150, transition = 0, redraw = FALSE)
+    # (ggplot(plot1.data(), aes(x = year, y = net_migration_millions)) +
+    #   geom_line()) %>%
+    # ggplotly(dynamicTicks = TRUE) %>% layout(xaxis = list(title = "Year"), yaxis = list(title = "Net Migration (millions)")) %>%
+    #   animation_opts(frame = 150, transition = 0, redraw = FALSE)
+    plot_ly(plot1.data(), x = ~year, y = ~net_migration_millions, type = "scatter", mode = "lines+markers") %>% 
+            layout(title = "Net Immigration Per Year", xaxis = list(title = "Year"), yaxis = list(title = "Net Immigration (millions)")) %>%
+            animation_opts(frame = 200, transition = 0, redraw = FALSE)
+    
+    
   })
   
 })
