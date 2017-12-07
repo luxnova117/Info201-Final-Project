@@ -1,12 +1,15 @@
 library(shiny)
+library(mlbench)
 library(plotly)
-
+library(shinythemes)
+library(dplyr)
 
 
 source("WDI_data_wrangling.R")
 
 
 my.ui <- fluidPage(
+  theme = shinytheme("cyborg"),
   tabsetPanel(
     tabPanel("net migration",
 

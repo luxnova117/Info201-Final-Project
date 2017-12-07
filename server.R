@@ -36,19 +36,11 @@ shinyServer(function(input, output) {
   net.migration.data <- reactive({
     migration.data <- getData("SM.POP.NETM", start.year = input$year, end.year = input$year) %>%
       na.omit()
-<<<<<<< HEAD
-    
     migration.data$country[[208]] = "Russia"
     migration.data[[92, 'country']] <- "Congo, Democratic Republic of the"
     migration.data[106, 'country'] <- "Egypt"
     migration.data[138, 'country'] <- "Iran"
-=======
 
-    migration.data$country[208] = "Russia"
-    migration.data$country[92] = "Congo, Democratic Republic of the"
-    migration.data$country[106] = "Egypt"
-    migration.data$country[138] = "Iran"
->>>>>>> 84f8d7e28237a34bb1d9e7c28b0d0e8595b2f5f9
     
 
     data.w.codes <- left_join(migration.data, df, by = c("country" = "COUNTRY")) %>%
@@ -92,7 +84,7 @@ shinyServer(function(input, output) {
         color = ~SM.POP.NETM,
         colors = 'RdYlGn',
         locations = ~CODE,
-        hoverinfo = 'text',
+        #hoverinfo = 'text',
         text = ~paste(country, ": ", format(SM.POP.NETM, big.mark=",", trim=TRUE)),
         type = "choropleth"
       ) %>%
