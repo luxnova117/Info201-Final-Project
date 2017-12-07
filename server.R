@@ -76,15 +76,15 @@ shinyServer(function(input, output) {
   })
 
 
-  # international.migrant.stock.data.for.graph <- reactive({
-  #   selected.country <- input$con2
-  #   selected.code <- filter(country.codes, name == selected.country) %>% select(code)
-  #   migrant.stock.data <- getData("SM.POP.TOTL", countries = selected.code) %>% na.omit()
-  #   colnames(migrant.stock.data)[3] <- "migrant_stock"
-  #   migrant.stock.data$migrant_stock <- migrant.stock.data$migrant_stock / 1000000
-  #   colnames(migrant.stock.data)[3] <- "migrant_stock_millions"
-  #   return(migrant.stock.data)
-  # })
+  international.migrant.stock.data.for.graph <- reactive({
+    selected.country <- input$con2
+    selected.code <- filter(country.codes, name == selected.country) %>% select(code)
+    migrant.stock.data <- getData("SM.POP.TOTL", countries = selected.code) %>% na.omit()
+    colnames(migrant.stock.data)[3] <- "migrant_stock"
+    migrant.stock.data$migrant_stock <- migrant.stock.data$migrant_stock / 1000000
+    colnames(migrant.stock.data)[3] <- "migrant_stock_millions"
+    return(migrant.stock.data)
+  })
   net.migration.data.for.graph <- reactive({
     selected.country <- input$con
 
@@ -126,17 +126,12 @@ shinyServer(function(input, output) {
     plot_ly(net.migration.data.for.graph(), x = ~year, y = ~net_migration_millions, type = "scatter", mode = "lines+markers") %>%
             layout(title = "Net Immigration Per Year", xaxis = list(title = "Year"), yaxis = list(title = "Net Immigration (millions)")) %>%
             animation_opts(frame = 200, transition = 0, redraw = FALSE)
-    # x <- c(1:100)
-    # random_y <- rnorm(100, mean = 0)
-    # data <- data.frame(x, random_y)
-    # 
-    # plot_ly(data, x = ~x, y = ~random_y, type = 'scatter', mode = 'lines')
   })
   # if net migration chosen, renders graph
-  # output$plot3 <- renderPlotly({
-  #   plot_ly(net.migration.for.graph(), x = ~year, y = ~net_migration_millions, type = 'scatter', mode = 'lines+markers') %>% 
-  #     layout(title = 'net migration per year', xaxis = list(title = "Year"), yaxis = list(title = "net migration"))
-  # })
+  output$plot3 <- renderPlotly({
+    plot_ly(net.migration.for.graph(), x = ~year, y = ~net_migration_millions, type = 'scatter', mode = 'lines+markers') %>%
+      layout(title = 'net migration per year', xaxis = list(title = "Year"), yaxis = list(title = "net migration"))
+  })
 
 })
 
