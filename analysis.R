@@ -39,6 +39,9 @@ makeMap <- function(data, indicator, the.title, colorscheme) {
       geo = g
     )
 }
+
+# Accepts a country and an indicator 
+# Returns data for the graphs
 makeGraphData = function(coun, indicator){
   selected.code <- filter(country.codes, name == coun) %>% select(code)
   selected.data <- getData(indicator, countries = selected.code) %>% na.omit()
