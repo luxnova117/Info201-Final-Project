@@ -66,21 +66,54 @@ makeMap <- function(data, indicator, the.title) {
 shinyServer(function(input, output) {
   
   net.migration.data <- reactive({
-
     return(makeMapData(input$year, "SM.POP.NETM"))
-
+  })
+  
+  net.migration.map <- reactive({
+    return(makeMap(net.migration.data(), "SM.POP.NETM", "Net Migration"))
   })
 
   migrant.stock.data <- reactive({
     return(makeMapData(input$year2, "SM.POP.TOTL"))
   })
   
-  net.migration.map <- reactive({
-    return(makeMap(net.migration.data(), "SM.POP.NETM", "Net Migration"))
-  })
-  
   migrant.stock.map <- reactive({
     return(makeMap(migrant.stock.data(), "SM.POP.TOTL", "Migrant Stock"))
+  })
+  
+  refugee.asylum.data <- reactive({
+    return(makeMapData(input$year3, "SM.POP.REFG"))
+  })
+  
+  refugee.asylum.map <- reactive({
+    return(makeMap(refugee.asylum.data(), "SM.POP.REFG", "Refugee Asylum Count"))
+  })
+  
+  refugee.origin.data <- reactive({
+    return(makeMapData(input$year4, "SM.POP.REFG.OR"))
+  })
+  
+  refugee.origin.map <- reactive({
+    return(makeMap(refugee.origin.data(), "SM.POP.REFG.OR", "Refugee Asylum Count"))
+  })
+  
+  
+  # this bit renders the plot to be displayed
+  # if net migration chosen, renders map
+  output$plot <- renderPlotly ({
+    net.migration.map()
+  })
+  
+  output$plot4 <- renderPlotly ({
+    migrant.stock.map()
+  })
+  
+  output$plot5 <- renderPlotly({
+    refugee.asylum.map()
+  })
+  
+  output$plot6 <- renderPlotly({
+    refugee.origin.map()
   })
 
   international.migrant.stock.data.for.graph <- reactive({
@@ -107,19 +140,6 @@ shinyServer(function(input, output) {
   
   
 
-  # this bit renders the plot to be displayed
-  # if net migration chosen, renders map
-  output$plot <- renderPlotly ({
-
-    net.migration.map()
-
-  })
-  
-  output$plot4 <- renderPlotly ({
-    
-    migrant.stock.map()
-    
-  })
 
   # if international stock migrant chosen, renders graph
   output$plot2 <- renderPlotly({
