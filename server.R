@@ -10,7 +10,7 @@ library("DT")
 
 source("WDI_data_wrangling.R")
 #source("Visualizations_Alex.R")
-source('overview.R')
+#source('overview.R')
 
 g <- list(
    showframe = FALSE,

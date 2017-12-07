@@ -10,12 +10,12 @@ my.ui <- fluidPage(
   titlePanel("Where are people moving to these days? Who is moving and how has it changed over time?"),
   tabsetPanel(
 
-    tabPanel("overview",
+    tabPanel("Overview",
              mainPanel(
                h2("Purpose"),
                p("The purpose of our project is to find an answer to the following questions: "),
-               h6("Where are people moving to these days? "),
-               h6("Who is moving and how has it changed over time?"),
+               h4(em("Where are people moving to these days?")),
+               h4(em("Who is moving and how has it changed over time?")),
                h2("Audience"),
                p("Our project would be helpful for governments and policy makers in that by looking at the trends of who is moving and how migration is changing over time with the help of our visualizations, they would be able to anticipate what migration would be like in their respective countries. This way, governments and policy makers are able to make certain legislative changes to say, accommodate an anticipated influx of immigrants or refugees over the next couple of years. "),
                h2("Data"),
@@ -38,7 +38,7 @@ my.ui <- fluidPage(
                br()
              )
     ),
-    tabPanel("net migration",
+    tabPanel("Net Migration",
              
              sidebarLayout(
                sidebarPanel(
