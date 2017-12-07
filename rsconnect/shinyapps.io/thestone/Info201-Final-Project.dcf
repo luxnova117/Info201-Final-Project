@@ -5,8 +5,8 @@ account: thestone
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 243122
-bundleId: 1111240
+bundleId: 1121938
 url: https://thestone.shinyapps.io/Info201-Final-Project/
-when: 1512258675.33685
+when: 1512682117.82166
 asMultiple: FALSE
 asStatic: FALSE
