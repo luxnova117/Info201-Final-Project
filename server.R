@@ -33,9 +33,11 @@ df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_wo
 makeMapData <- function(year, indicator) {
   migration.all.data <- getData(indicator, start.year = year, end.year = year) %>%
     na.omit() 
-  migration.data <- migration.data[47:261,]
-
-  return(migration.data)
+    
+  codes <- read.csv('all.csv', stringsAsFactors = FALSE)
+  
+  data.w.codes <- right_join(migration.data, codes, by = c("alpha.2" = "iso2c"))
+  return(data.w.codes)
 }
 
 makeMap <- function(data, indicator, the.title) {
