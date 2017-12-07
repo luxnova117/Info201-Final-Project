@@ -59,7 +59,16 @@ shinyServer(function(input, output) {
     colnames(migrant.stock.data)[3] <- "migrant_stock_millions"
     return(migrant.stock.data)
   })
-
+  
+  international.migrant.stock.percent <- reactive({
+    selected.country <- input$con2
+    selected.code <- filter(country.codes, name == selected.country) %>% select(code)
+    migrant.stock.data <- getData("SM.POP.TOTL.ZS", countries = selected.code) %>% na.omit()
+    colnames(migrant.stock.data)[3] <- "migrant_stock"
+    migrant.stock.data$migrant_stock <- migrant.stock.data$migrant_stock / 1000000
+    colnames(migrant.stock.data)[3] <- "migrant_stock_millions"
+    return(migrant.stock.data)
+  })
   net.migration.data.for.graph <- reactive({
     selected.country <- input$con
 
@@ -110,7 +119,10 @@ shinyServer(function(input, output) {
     plot_ly(international.migrant.stock.data.for.graph(), x = ~year, y = ~migrant_stock_millions, type = 'scatter', mode = 'lines+markers') %>%
       layout(title = 'Net Migrant Stock Per Year', xaxis = list(title = "Year"), yaxis = list(title = "Net Migrant Stock"))
   })
-
+  
+  output$plot4 <- renderPlotly({
+    
+  })
 
 })
 
