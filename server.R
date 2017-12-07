@@ -52,6 +52,12 @@ makeMap <- function(data, indicator, the.title, colorscheme) {
     )
 }
 
+makeGraphData = function(coun, indicator){
+  selected.code <- filter(country.codes, name == coun) %>% select(code)
+  selected.data <- getData(indicator, countries = selected.code) %>% na.omit()
+  return(selected.data)
+}
+
 
 shinyServer(function(input, output) {
   
@@ -94,49 +100,71 @@ shinyServer(function(input, output) {
     refugee.origin.map()
   })
 
-  international.migrant.stock.data.for.graph <- reactive({
-    selected.country <- input$con2
-    selected.code <- filter(country.codes, name == selected.country) %>% select(code)
-    migrant.stock.data <- getData("SM.POP.TOTL", countries = selected.code) %>% na.omit()
-    colnames(migrant.stock.data)[3] <- "migrant_stock"
-    migrant.stock.data$migrant_stock <- migrant.stock.data$migrant_stock / 1000000
-    colnames(migrant.stock.data)[3] <- "migrant_stock_millions"
-    return(migrant.stock.data)
-  })
-
-  net.migration.data.for.graph <- reactive({
-    selected.country <- input$con
-
-    selected.code <- filter(country.codes, name == selected.country) %>% select(code)
-    net.data <- getData("SM.POP.NETM", countries = selected.code) %>% na.omit()
-    colnames(net.data)[3] <- "net_migration"
-    net.data$net_migration <- net.data$net_migration / 1000000
-    colnames(net.data)[3] <- "net_migration_millions"
-    return(net.data)
-  })
-
-  
-  
-
-
   # if international stock migrant chosen, renders graph
   output$net.immigration.graph <- renderPlotly({
+    plot_ly(net.migration.data.for.graph(),
+            x = ~year,
+            y = ~SM.POP.NETM,
+            type = "scatter",
+            mode = "lines+markers", hoverinfo = "text", text = ~paste0("Net Migration Count: ", SM.POP.NETM),
+            color = I('lightseagreen')) %>%
+      layout(title = paste("Net Immigration Per Year", "-", net.migration.data.for.graph()$country[[1]]),
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Net Immigration Count"))
     
-    plot_ly(makeGraphData(input$con, 'SM.POP.NETM'), x = ~year, y = ~SM.POP.NETM, type = "scatter", mode = "lines+markers") %>%
-            layout(title = "Net Immigration Per Year", xaxis = list(title = "Year"), yaxis = list(title = "Net Immigration (millions)")) %>%
-            animation_opts(frame = 200, transition = 0, redraw = FALSE)
   })
   # if net migration chosen, renders graph
-
-  output$migrant.stock.graph <- renderPlotly({
-    plot_ly(makeGraphData(input$con2,'SM.POP.TOTL'), x = ~year, y = ~SM.POP.TOTL, type = 'scatter', mode = 'lines+markers') %>%
-      layout(title = 'Net Migrant Stock Per Year', xaxis = list(title = "Year"), yaxis = list(title = "Net Migrant Stock"))
+  output$migration.stock.graph <- renderPlotly({
+    plot_ly(international.migrant.stock.data.for.graph(),
+            x = ~year,
+            y = ~SM.POP.TOTL,
+            type = 'scatter',
+            mode = 'lines+markers',
+            hoverinfo = "text",
+            text = ~paste0("Total Immigrants: ", SM.POP.TOTL)) %>%
+      layout(title = paste("Total Immigrants", "-", international.migrant.stock.data.for.graph()$country[[1]]),
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Total Immigrant Count"))
   })
   
-    
+  output$refugee_asylum <- renderPlotly({
+    plot_ly(refugee.asylum.data.for.graph(),
+            x = ~year,
+            y = ~SM.POP.REFG,
+            type = 'scatter',
+            mode = 'lines+markers',
+            hoverinfo = "text",
+            text = ~paste0("Refugees: ", SM.POP.REFG)) %>%
+      layout(title = paste('Refugee Population Of', refugee.asylum.data.for.graph()$country[[1]]),
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Total Refugee Count"))
+  })
   
-
-
+  output$refugee_asylum_an <- renderPlotly({
+    plot_ly(refugee.asylum.data.for.graph(),
+            x = ~year,
+            y = ~SM.POP.REFG,
+            type = 'scatter',
+            mode = 'lines+markers',
+            hoverinfo = "text",
+            text = ~paste0("Refugees in ", "refugee.asylum.data.for.graph()$country[[1]]", SM.POP.REFG)) %>%
+      layout(title = paste('Refugee Population In', refugee.asylum.data.for.graph()$country[[1]], type = "log"),
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Total Refugee Count"))
+  })
+  
+  output$refugee_origin <- renderPlotly({
+    plot_ly(refugee.origin.data.for.graph(),
+            x = ~year,
+            y = ~SM.POP.REFG.OR,
+            type = 'scatter',
+            mode = 'lines+markers',
+            hoverinfo = "text",
+            text = ~paste0("Refugees rom: ", refugee.origin.data.for.graph()$country[[1]], SM.POP.REFG.OR)) %>%
+      layout(title = paste('Refugee Population From', refugee.origin.data.for.graph()$country[[1]]),
+             xaxis = list(title = "Year"),
+             yaxis = list(title = "Total Refugee Count"))
+  })
 })
 
 
