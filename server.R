@@ -53,6 +53,23 @@ shinyServer(function(input, output) {
     refugee.origin.map()
   })
 
+  net.migration.data.for.graph <- reactive({
+    return(makeGraphData(coun = input$con, "SM.POP.NETM"))
+  })
+  
+  international.migrant.stock.data.for.graph <- reactive({
+    return(makeGraphData(coun = input$con2, "SM.POP.TOTL"))
+  })
+  
+  refugee.asylum.data.for.graph <- reactive({
+    return(makeGraphData(coun = input$con3, "SM.POP.REFG"))
+  })
+  
+  refugee.origin.data.for.graph <- reactive({
+    return(makeGraphData(coun = input$con4, "SM.POP.REFG.OR"))
+  })
+  
+  
   # if international stock migrant chosen, renders graph
   output$net.immigration.graph <- renderPlotly({
     plot_ly(net.migration.data.for.graph(),

@@ -38,32 +38,6 @@ my.ui <- fluidPage(theme = shinytheme("cyborg"),
                br()
              )
     ),
-    # tabPanel("Net Migration",
-    #          
-    #          sidebarLayout(
-    #            sidebarPanel(
-    #              # a slider to change the year dataset displayed
-    #              # years from 1962 to 2012 that jumps by 5
-    #              sliderInput(inputId = "year.netm",
-    #                          label = "Update the map to a specified year, or select Play to watch the progression:",
-    #                          min = 1962,
-    #                          max = 2012,
-    #                          value = 15,
-    #                          step = 5,
-    #                          sep = "",
-    #                          animate = TRUE),
-    #              
-    #              selectInput("con", 'check all the countries you wish to compare', choices = country.codes$name),
-    #              p("Net migration looks at the net increase or decrease of people moving in and out of a country. 
-    #                Green on a country shows that more people were moving in than out. And red shows that there were 
-    #                more people leaving that particular country during the selected timeframe. This data is done is five-year estimates.")
-    # 
-    #            ),
-    #            mainPanel(plotlyOutput("net.migration.map"),
-    #                      plotlyOutput("net.immigration.graph")
-    #            )
-    #          )
-    # ),
     tabPanel("Net Migration Numbers",
              tags$style(HTML("#con {background: red}")),
              fluidRow(
@@ -92,8 +66,10 @@ my.ui <- fluidPage(theme = shinytheme("cyborg"),
                  ),
                
                mainPanel(plotlyOutput("net.immigration.graph")
-               ))
-               ),
+              ))
+            ),
+    
+    
     tabPanel("International Migrant Stock",
 
              sidebarLayout(
@@ -109,17 +85,20 @@ my.ui <- fluidPage(theme = shinytheme("cyborg"),
                              sep = "",
                              animate = TRUE),
                  
-                 selectInput("con2", 'check all the countries you wish to compare', choices = country.codes$name),
+                 selectInput("con2", 'Select Country to Analyze', choices = country.codes.net.mig$name),
                  p("International migrant stock is the number of people born in a country other than that in which they live. 
                    This data includes refugees and is mainly taken from population censuses.")
                ),
 
                mainPanel(
                   plotlyOutput("migrant.stock.map"),
-                  plotlyOutput("migrant.stock.graph")
+                  plotlyOutput("migration.stock.graph")
                )
              )
     ),
+    
+    
+ 
     tabPanel("Refugee Population by Country or Terriory of Asylum",
              
              sidebarLayout(
@@ -133,11 +112,13 @@ my.ui <- fluidPage(theme = shinytheme("cyborg"),
                              value = 1990,
                              sep = "",
                              animate = TRUE),
+                 selectInput("con3", 'Select Country to Analyze', choices = country.codes.net.mig$name),
                  p("This data displays where refugees are being displaced to. Refugees are people who are recognized as refugees under the 1951 Convention Relating to the Status of Refugees or its 1967 Protocol, the 1969 Organization of African Unity Convention Governing the Specific Aspects of Refugee Problems in Africa, people recognized as refugees in accordance with the UNHCR statute, people granted refugee-like humanitarian status, and people provided temporary protection.")
                ),
                
                mainPanel(
-                 plotlyOutput("refugee.asylum.map")
+                 plotlyOutput("refugee.asylum.map"),
+                 plotlyOutput("refugee_asylum")
                )
              )
     ),
@@ -154,11 +135,13 @@ my.ui <- fluidPage(theme = shinytheme("cyborg"),
                              value = 1990,
                              sep = "",
                              animate = TRUE),
+                 selectInput("con4", 'Select Country to Analyze', choices = country.codes.net.mig$name),
                  p("This data shows the countries where refugees are leaving from. Refugees are people who are recognized as refugees under the 1951 Convention Relating to the Status of Refugees or its 1967 Protocol, the 1969 Organization of African Unity Convention Governing the Specific Aspects of Refugee Problems in Africa, people recognized as refugees in accordance with the UNHCR statute, people granted refugee-like humanitarian status, and people provided temporary protection.")
                ),
                
                mainPanel(
-                 plotlyOutput("refugee.origin.map")
+                 plotlyOutput("refugee.origin.map"),
+                 plotlyOutput("refugee_origin")
                )
              )
     )
