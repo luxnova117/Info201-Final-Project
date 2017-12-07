@@ -10,7 +10,6 @@ library("DT")
 
 source("WDI_data_wrangling.R")
 #source("Visualizations_Alex.R")
-#source('overview.R')
 
 g <- list(
    showframe = FALSE,
@@ -48,6 +47,12 @@ makeMap <- function(data, indicator, the.title, colorscheme) {
       text = ~paste(country, ": ", format(eval(parse(text=indicator)), big.mark=",", trim=TRUE)),
       type = "choropleth"
     ) %>%
+    add_markers(
+      z = ~eval(parse(text=indicator)),
+      locations = ~country,
+      locationmode = "country names",
+      text = paste0(""), 
+      size = I(~eval(parse(text=indicator)))) %>% 
     colorbar(title = "Number of People (Million)") %>%
     layout(
       title = the.title,
