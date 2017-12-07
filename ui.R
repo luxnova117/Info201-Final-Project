@@ -20,11 +20,11 @@ my.ui <- fluidPage(
                              value = 15,
                              step = 5,
                              sep = "",
-                             animate = TRUE),
+                             animate = TRUE)
                  
                  # a checkbox input seems fairly appropriate, it would let the user choose 
                  # what they want to view from the data very specifically
-                 checkboxGroupInput("con", 'check all the countries you wish to compare', choices = country.codes$name)
+                 # checkboxGroupInput("con", 'check all the countries you wish to compare', choices = country.codes$name)
                ),
                
                mainPanel(plotlyOutput("plot"),
@@ -46,11 +46,12 @@ my.ui <- fluidPage(
                              value = 15,
                              step = 5,
                              sep = "",
-                             animate = TRUE),
+                             animate = TRUE)
+                 #,
                  
                  # a checkbox input seems fairly appropriate, it would let the user choose 
                  # what they want to view from the data very specifically
-                 checkboxGroupInput("con", 'check all the countries you wish to compare', choices = country.codes$name)
+                 # checkboxGroupInput("con", 'check all the countries you wish to compare', choices = country.codes$name)
                ),
                
                mainPanel(plotlyOutput("plot"),

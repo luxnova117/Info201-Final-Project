@@ -35,6 +35,7 @@ combined.dat <- filter(combined.dat, country == "United States")
 international.migrant.stock <- getData('SM.POP.TOTL')
 international.migrant.stock <- na.omit(international.migrant.stock)
 
+df <- read.csv('https://raw.githubusercontent.com/plotly/datasets/master/2014_world_gdp_with_codes.csv', stringsAsFactors = FALSE)
 
 
 

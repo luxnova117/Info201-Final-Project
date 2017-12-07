@@ -110,19 +110,19 @@ shinyServer(function(input, output) {
 
     
     })
-  # if net migration chosen, renders graph
+  # if international stock migrant chosen, renders graph
   output$plot2 <- renderPlotly({
-    (ggplot(international.migrant.stock.data.for.graph(), aes(x = ~year, y = ~migrant_stock_millions)) +
-      geom_line()) 
+    plot_ly(international.migrant.stock.data.for.graph(), x = ~year, y = ~migrant_stock_millions, type = 'scatter', mode = 'lines+markers') %>% 
+      layout(title = 'international migrant stock per year', xaxis = list(title = "Year"), yaxis = list(title = "international migrant stock"))
     # %>%
     # ggplotly(dynamicTicks = TRUE) %>% layout(xaxis = list(title = "Year"), yaxis = list(title = "Net Migration (millions)")) %>%
     #   animation_opts(frame = 150, transition = 0, redraw = FALSE)
   })
   
-  # if international stock migrant chosen, renders graph
+  # if net migration chosen, renders graph
   output$plot3 <- renderPlotly({
-    (ggplot(net.migration.data.for.graph(), aes(x = ~year, y = ~net_migration_millions)) +
-       geom_line()) 
+    plot_ly(net.migration.for.graph(), x = ~year, y = ~net_migration_millions, type = 'scatter', mode = 'lines+markers') %>% 
+      layout(title = 'net migration per year', xaxis = list(title = "Year"), yaxis = list(title = "net migration"))
   })
 })
 
