@@ -56,7 +56,7 @@ my.ui <- fluidPage(
                  selectInput("con", 'check all the countries you wish to compare', choices = country.codes$name),
                  p("Net migration looks at the net increase or decrease of people moving in and out of a country. 
                    Green on a country shows that more people were moving in than out. And red shows that there were 
-                   more people leaving that particular country during the selected timeframe.")
+                   more people leaving that particular country during the selected timeframe. This data is done is five-year estimates.")
 
                ),
                mainPanel(plotlyOutput("net.migration.map"),
@@ -68,7 +68,6 @@ my.ui <- fluidPage(
 
              sidebarLayout(
                sidebarPanel(
-                 p("TESTING"),
                  # a slider to change the year dataset displayed
                  # years from 1962 to 2012 that jumps by 5
                  sliderInput(inputId = "year.totl",
@@ -79,12 +78,10 @@ my.ui <- fluidPage(
                              step = 5,
                              sep = "",
                              animate = TRUE),
-                 #,
-
-                 # a checkbox input seems fairly appropriate, it would let the user choose
-                 # what they want to view from the data very specifically
+                 
                  selectInput("con2", 'check all the countries you wish to compare', choices = country.codes$name),
-                 p("Paragraph goes here")
+                 p("International migrant stock is the number of people born in a country other than that in which they live. 
+                   This data includes refugees and is mainly taken from population censuses.")
                ),
 
                mainPanel(
