@@ -63,8 +63,49 @@ my.ui <- fluidPage(
                   plotlyOutput("plot3")
                )
              )
+    ),
+    tabPanel("Refugee population by country or terriory of asylum",
+             titlePanel("Where are people moving to these days? Who is moving and how has it changed over time?"),
+             
+             sidebarLayout(
+               sidebarPanel(
+                 # a slider to change the year dataset displayed
+                 # years from 1962 to 2012 that jumps by 5
+                 sliderInput(inputId = "year3",
+                             label = "Year:",
+                             min = 1990,
+                             max = 2016,
+                             value = 1990,
+                             sep = "",
+                             animate = TRUE)
+               ),
+               
+               mainPanel(
+                 plotlyOutput("plot5")
+               )
+             )
+    ),
+    tabPanel("Refugee population by country or terriory of origin",
+             titlePanel("Where are people moving to these days? Who is moving and how has it changed over time?"),
+             
+             sidebarLayout(
+               sidebarPanel(
+                 # a slider to change the year dataset displayed
+                 # years from 1962 to 2012 that jumps by 5
+                 sliderInput(inputId = "year4",
+                             label = "Year:",
+                             min = 1990,
+                             max = 2016,
+                             value = 1990,
+                             sep = "",
+                             animate = TRUE)
+               ),
+               
+               mainPanel(
+                 plotlyOutput("plot6")
+               )
+             )
     )
-
   )
 )
 
