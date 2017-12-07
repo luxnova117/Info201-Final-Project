@@ -41,25 +41,6 @@ makeMapData <- function(year, indicator) {
 }
 
 
-#output$plot <- renderPlotly ({
-#   #key <- select(net.migration.data(), country)
-#   plot_geo(net.migration.data()) %>%
-#     add_trace(
-#       z = ~SM.POP.NETM,
-#       color = ~SM.POP.NETM,
-#       colors = 'RdYlGn',
-#       locations = ~CODE,
-#       #hoverinfo = 'text',
-#       text = ~paste(country, ": ", format(SM.POP.NETM, big.mark=",", trim=TRUE)),
-#       type = "choropleth"
-#     ) %>%
-#   colorbar(title = "Number of People (Million)") %>%
-#     layout(
-#       title = 'Migration Map',
-#       geo = g
-#     )
-
-
 makeMap <- function(data, indicator, the.title, colorscheme) {
   plot_geo(data) %>%
     add_trace(
@@ -149,7 +130,7 @@ shinyServer(function(input, output) {
   
   
   # if international stock migrant chosen, renders graph
-  output$plot2 <- renderPlotly({
+  output$net.immigration.graph <- renderPlotly({
     plot_ly(net.migration.data.for.graph(),
             x = ~year,
             y = ~SM.POP.NETM,
@@ -162,7 +143,7 @@ shinyServer(function(input, output) {
       
   })
   # if net migration chosen, renders graph
-  output$plot3 <- renderPlotly({
+  output$migration.stock.graph <- renderPlotly({
     plot_ly(international.migrant.stock.data.for.graph(),
             x = ~year,
             y = ~SM.POP.TOTL,

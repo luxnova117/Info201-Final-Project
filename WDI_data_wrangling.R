@@ -69,5 +69,8 @@ net.mig <- getData('SM.POP.NETM', start.year = 2012, end.year = 2012) %>% na.omi
 net.mig <- net.mig[47:length(net.mig$country),]
 country.codes.net.mig <- filter(country.codes, country.codes$name %in% net.mig$country) %>% arrange(name)
 
-
-
+link1 <- "https://github.com/vincentarelbundock/WDI"
+link2 <- "https://data.worldbank.org/indicator/SM.POP.REFG"
+link3 <- "https://data.worldbank.org/indicator/SM.POP.REFG.OR"
+link4 <- "https://data.worldbank.org/indicator/SM.POP.NETM"
+link5 <- "https://data.worldbank.org/indicator/SM.POP.TOTL"

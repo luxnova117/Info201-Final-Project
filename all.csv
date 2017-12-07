@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿name,alpha-2,alpha-3,country-code,iso_3166-2,region,sub-region,region-code,sub-region-code
+=======
+name,alpha-2,alpha-3,country-code,iso_3166-2,region,sub-region,region-code,sub-region-code
+>>>>>>> 9e810e2aa19cbba4ec236d1eabeb6243f4cefc18
 Afghanistan,AF,AFG,004,ISO 3166-2:AF,Asia,Southern Asia,142,034
 Åland Islands,AX,ALA,248,ISO 3166-2:AX,Europe,Northern Europe,150,154
 Albania,AL,ALB,008,ISO 3166-2:AL,Europe,Southern Europe,150,039
@@ -247,4 +251,8 @@ Wallis and Futuna,WF,WLF,876,ISO 3166-2:WF,Oceania,Polynesia,009,061
 Western Sahara,EH,ESH,732,ISO 3166-2:EH,Africa,Northern Africa,002,015
 Yemen,YE,YEM,887,ISO 3166-2:YE,Asia,Western Asia,142,145
 Zambia,ZM,ZMB,894,ISO 3166-2:ZM,Africa,Eastern Africa,002,014
+<<<<<<< HEAD
 Zimbabwe,ZW,ZWE,716,ISO 3166-2:ZW,Africa,Eastern Africa,002,014
+=======
+Zimbabwe,ZW,ZWE,716,ISO 3166-2:ZW,Africa,Eastern Africa,002,014
+>>>>>>> 9e810e2aa19cbba4ec236d1eabeb6243f4cefc18
