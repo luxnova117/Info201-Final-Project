@@ -61,6 +61,26 @@ shinyServer(function(input, output) {
     return(data.w.codes)
   })
   
+  international.migrant.stock.data.for.graph <- reactive({
+    selected.country <- input$con
+    #selected.code <- filter(country.codes, name == selected.country) %>% select(code)
+    migrant.stock.data <- getData("SM.POP.TOTL", countries = selected.country) %>% na.omit()
+    colnames(migrant.stock.data)[3] <- "migrant_stock"
+    migrant.stock.data$migrant_stock <- migrant.stock.data$migrant_stock / 1000000
+    colnames(migrant.stock.data)[3] <- "migrant_stock_millions"
+    return(migrant.stock.data)
+  })
+  net.migration.data.for.graph <- reactive({
+    selected.country <- input$con
+    #selected.code <- filter(country.codes, name == selected.country) %>% select(code)
+    net.data <- getData("SM.POP.NETM", countries = selected.country) %>% na.omit()
+    colnames(net.data)[3] <- "net_migration"
+    net.data$net_migration <- net.data$net_migration / 1000000
+    colnames(net.data)[3] <- "net_migration_millions"
+    return(net.data)
+  })
+  
+  
   
   # this bit renders the plot to be displayed
   output$plot <- renderPlotly ({
@@ -83,6 +103,20 @@ shinyServer(function(input, output) {
 
     
     })
+  
+  output$plot2 <- renderPlotly({
+    plot_ly(international.migrant.stock.data.for.graph(), x = ~year, y = ~migrant_stock_millions, type = 'scatter', mode = 'lines+markers') %>% 
+      layout(title = 'international migrant stock per year', xaxis = list(title = "Year"), yaxis = list(title = "international migrant stock"))
+    # %>%
+    # ggplotly(dynamicTicks = TRUE) %>% layout(xaxis = list(title = "Year"), yaxis = list(title = "Net Migration (millions)")) %>%
+    #   animation_opts(frame = 150, transition = 0, redraw = FALSE)
+  })
+  
+  # if net migration chosen, renders graph
+  output$plot3 <- renderPlotly({
+    plot_ly(net.migration.for.graph(), x = ~year, y = ~net_migration_millions, type = 'scatter', mode = 'lines+markers') %>% 
+      layout(title = 'net migration per year', xaxis = list(title = "Year"), yaxis = list(title = "net migration"))
+  })
   
 })
 
