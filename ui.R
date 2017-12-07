@@ -58,7 +58,7 @@ my.ui <- fluidPage(
                  selectInput("con2", 'check all the countries you wish to compare', choices = country.codes$name)
                ),
 
-               mainPanel(plotlyOutput("plot"),
+               mainPanel(
                          plotlyOutput("plot3")
                )
              )
@@ -66,7 +66,7 @@ my.ui <- fluidPage(
 
   )
 )
-)
+
 
 # Define UI for application
 shinyUI(my.ui)
