@@ -2,11 +2,14 @@ library(shiny)
 library(plotly)
 
 
+
 source("WDI_data_wrangling.R")
+
 
 my.ui <- fluidPage(
   tabsetPanel(
     tabPanel("net migration",
+
              titlePanel("Where are people moving to these days? Who is moving and how has it changed over time?"),
              
              sidebarLayout(
@@ -60,7 +63,9 @@ my.ui <- fluidPage(
                )
              )
     )
+
   )
+)
 )
 
 # Define UI for application
