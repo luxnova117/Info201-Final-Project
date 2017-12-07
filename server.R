@@ -95,7 +95,8 @@ shinyServer(function(input, output) {
         color = ~SM.POP.NETM,
         colors = 'RdYlGn',
         locations = ~CODE,
-        #text = ~SM.POP.NETM,
+        hoverinfo = 'text',
+        text = ~paste(country, ": ", format(SM.POP.NETM, big.mark=",", trim=TRUE)),
         type = "choropleth"
       ) %>%
     colorbar(title = "Number of People (Million)") %>%
