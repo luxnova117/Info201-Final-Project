@@ -38,32 +38,62 @@ my.ui <- fluidPage(theme = shinytheme("cyborg"),
                br()
              )
     ),
-    tabPanel("Net Migration",
+    # tabPanel("Net Migration",
+    #          
+    #          sidebarLayout(
+    #            sidebarPanel(
+    #              # a slider to change the year dataset displayed
+    #              # years from 1962 to 2012 that jumps by 5
+    #              sliderInput(inputId = "year.netm",
+    #                          label = "Update the map to a specified year, or select Play to watch the progression:",
+    #                          min = 1962,
+    #                          max = 2012,
+    #                          value = 15,
+    #                          step = 5,
+    #                          sep = "",
+    #                          animate = TRUE),
+    #              
+    #              selectInput("con", 'check all the countries you wish to compare', choices = country.codes$name),
+    #              p("Net migration looks at the net increase or decrease of people moving in and out of a country. 
+    #                Green on a country shows that more people were moving in than out. And red shows that there were 
+    #                more people leaving that particular country during the selected timeframe. This data is done is five-year estimates.")
+    # 
+    #            ),
+    #            mainPanel(plotlyOutput("net.migration.map"),
+    #                      plotlyOutput("net.immigration.graph")
+    #            )
+    #          )
+    # ),
+    tabPanel("Net Migration Numbers",
+             tags$style(HTML("#con {background: red}")),
+             fluidRow(
+               column(12,
+                      plotlyOutput("net.migration.map")),
+               column(12,
+                      sliderInput(inputId = "year.netm",
+                                  label = "Update the map to a specified year, or select Play to watch the progression:",
+                                  min = 1962,
+                                  max = 2012,
+                                  value = 15,
+                                  step = 5,
+                                  sep = "",
+                                  animate = TRUE,
+                                  width = "80%"),
+                      offset = 1
+               )
+             ),
              
              sidebarLayout(
                sidebarPanel(
-                 # a slider to change the year dataset displayed
-                 # years from 1962 to 2012 that jumps by 5
-                 sliderInput(inputId = "year.netm",
-                             label = "Update the map to a specified year, or select Play to watch the progression:",
-                             min = 1962,
-                             max = 2012,
-                             value = 15,
-                             step = 5,
-                             sep = "",
-                             animate = TRUE),
-                 
-                 selectInput("con", 'check all the countries you wish to compare', choices = country.codes$name),
+                 selectInput("con", 'Select Country to Analyze', choices = country.codes.net.mig$name),
                  p("Net migration looks at the net increase or decrease of people moving in and out of a country. 
                    Green on a country shows that more people were moving in than out. And red shows that there were 
                    more people leaving that particular country during the selected timeframe. This data is done is five-year estimates.")
-
+                 ),
+               
+               mainPanel(plotlyOutput("net.immigration.graph")
+               ))
                ),
-               mainPanel(plotlyOutput("net.migration.map"),
-                         plotlyOutput("net.immigration.graph")
-               )
-             )
-    ),
     tabPanel("International Migrant Stock",
 
              sidebarLayout(
